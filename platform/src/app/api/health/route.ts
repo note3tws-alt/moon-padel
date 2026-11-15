@@ -26,6 +26,17 @@ async function step(name: string, fn: () => Promise<unknown>, ms = 8000) {
 export async function GET() {
   if (!isDatabaseConfigured()) return NextResponse.json({ database: "not configured" });
   const steps = [];
+  const period0 = currentPeriod();
+  steps.push(
+    await step(
+      "home page queries all at once (cold)",
+      () => Promise.all([
+        getSettings(), demoCounts(), getSettings(), getDivisions(), getUpcomingTournaments(6), getTopByDivision(period0),
+        getMonthlyChampions(period0), getLatestChampions(), getRisingPlayers(7, 5), getRisingPlayers(30, 5), getLeagueStats(),
+      ]),
+      10000,
+    ),
+  );
   steps.push(
     await step("plain connection", async () => {
       const raw = postgres(process.env.DATABASE_URL!, { prepare: false, max: 1, ssl: "require", connect_timeout: 6 });
@@ -64,5 +75,5 @@ export async function GET() {
     }
   }
   steps.push(await step("pool: params", () => sql()`select ${5}::int as n, ${"2026-11-01"}::date as d`, 5000));
-  return NextResponse.json({ steps }, { headers: { "cache-control": "no-store" } });
+  return NextResponse.json({ sessionPooler: process.env.DATABASE_SESSION_POOLER === "1", steps }, { headers: { "cache-control": "no-store" } });
 }
