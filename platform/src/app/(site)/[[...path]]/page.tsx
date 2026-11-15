@@ -8,16 +8,12 @@ import PrivacyPage from "@/components/pages/privacy-page";
  * Serves "/", "/rules" and "/privacy". They live behind an optional catch-all so that
  * nothing here is prerendered during `next build` (prerendering against the
  * database has stalled Netlify builds). Each page is rendered on its first
- * visit and then cached like the rest of the public site (see the layout's
- * revalidate); admin changes refresh it through refreshPublicSite().
+ * request and cached on the Netlify CDN like the rest of the public site (see
+ * middleware.ts); admin changes clear it through refreshPublicSite().
  * Other public routes (/leaderboard, /players, ...) are folders of their own
  * and take precedence over this catch-all.
  */
 type Props = { params: Promise<{ path?: string[] }> };
-
-export async function generateStaticParams() {
-  return [];
-}
 
 function pageFor(path: string[] | undefined) {
   if (!path || path.length === 0) return "home";
