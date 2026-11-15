@@ -16,6 +16,8 @@ Padel tournament and events brand. Work here covers brand identity, the Instagra
 | `design/Day7-FirstMoonNight.dc.html` | Day 7 first event poster |
 | `design/Story-*.dc.html` | Story templates: reveal countdown, founding players list |
 | `design/Profile-Preview.dc.html` | Mock of the Instagram profile on Day 7 |
+| `brand/` | Logo kit: moon mark, lockups, icons, social profile and highlight images, usage rules (`brand/README.md`) |
+| `exports/posters/` | PNG exports of every design board, using the real moon mark (court photos still to come) |
 
 The `.dc.html` files are the source files of the Claude Design canvas "Moon Padel Brand Board & Launch Posts" (https://claude.ai/artifact/8yeSLsydutgqcExXMFR8Cc). Each one is a single fixed-size board with inline styles. They load `./support.js` from the canvas runtime, which is not included, so they are sources to edit, not standalone pages.
 
