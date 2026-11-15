@@ -1,9 +1,6 @@
 import { isDatabaseConfigured } from "@/lib/db";
-import type { Metadata } from "next";
 import { DivisionBadge } from "@/components/brand";
 import { getRulesData } from "@/lib/queries";
-
-export const metadata: Metadata = { title: "Rankings & Rules", description: "How MoonPadel ratings, points, divisions and monthly rankings work." };
 
 const TIE_LABELS: Record<string, string> = { points: "Points", wins: "Wins", winPct: "Win percentage", gameDiff: "Game difference", rating: "Rating", fewerTournaments: "Fewer tournaments played", moreTournaments: "More tournaments played" };
 const FINISH_LABELS: Record<string, string> = { winPoints: "Win points", totalPoints: "Total match points", gameDiff: "Game difference", gamesWon: "Games won", wins: "Wins", rating: "Rating" };
