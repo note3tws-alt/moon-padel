@@ -23,6 +23,7 @@ function create() {
     prepare: false,
     max: Number(process.env.DATABASE_POOL_MAX ?? (local ? 10 : 3)),
     idle_timeout: 20,
+    connect_timeout: 10,
     ssl: local || process.env.DATABASE_SSL === "disable" ? false : "require",
     types: {
       // numeric -> JS number (all our numerics are small)
