@@ -1,3 +1,4 @@
+import { isDatabaseConfigured } from "@/lib/db";
 import type { Metadata } from "next";
 import { DivisionBadge } from "@/components/brand";
 import { getRulesData } from "@/lib/queries";
@@ -13,6 +14,7 @@ const METHOD_TEXT: Record<string, string> = {
 };
 
 export default async function RulesPage() {
+  if (!isDatabaseConfigured()) return null; // the layout shows the setup message
   const { config, rulesetName, divisions, rules } = await getRulesData();
   const mults = Object.entries(config.points.courtMultipliers).filter(([k]) => k !== "default").sort((a, b) => Number(a[0]) - Number(b[0]));
   return (
