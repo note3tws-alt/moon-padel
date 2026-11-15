@@ -13,7 +13,8 @@ Next.js 15 (App Router), React 19, TypeScript, Tailwind, Framer Motion, Recharts
 | Path | What it is |
 | --- | --- |
 | `src/app/(site)` | Public pages: home, `/leaderboard`, `/players`, `/players/[slug]`, `/pairs/[slug]`, `/tournaments`, `/tournaments/[slug]`, `/rules` |
-| `src/app/admin` | Admin login and panel: dashboard, players, upload data, tournaments, matches and results, leaderboard, divisions, clubs and venues, fixed pairs, scoring settings, website settings, audit log |
+| `src/app/(site)/login`, `src/app/(site)/account`, `src/app/auth` | Player login (Google or email link), My profile, sign-in callback |
+| `src/app/admin` | Admin login and panel: player accounts, dashboard, players, upload data, tournaments, matches and results, leaderboard, divisions, clubs and venues, fixed pairs, scoring settings, website settings, audit log |
 | `src/app/api/admin` | Import parse/run, failed rows download, templates, players export. Admin only |
 | `src/lib/scoring` | The scoring engine: rating models, points, rankings, tie-breakers. Pure TypeScript, unit tested |
 | `src/lib/recalc.ts` | Rebuilds every ranking and stat from match data inside one database transaction |
@@ -57,6 +58,30 @@ The app can generate 40 fictional players, 4 fictional venues marked "(demo)", f
 
 Remove demo data before going live. Nothing else is touched when you remove it.
 
+## Player accounts
+
+Players sign in from the **Login** button in the header (Google, or a sign-in link by email). Signing in does not give anyone access to data. An account only shows a player's stats once it is connected to their player profile, in one of two ways:
+
+- **Invite by email:** an admin saves the player's email on their player record. When the player signs in with that same, verified email, the profile connects by itself.
+- **Request and approve:** the player searches for their name on My profile and taps "This is me" (or asks to be added if they are new). The request waits in Admin > Player accounts until an admin approves or declines it.
+
+Each profile can have one account and each account one profile. Admins can disconnect an account at any time; results are never touched.
+
+On **My profile** a connected player sees their rating, ranking, stats, upcoming tournaments, recent matches and finishes, and can change their flag, nationality, playing side, photo and a private phone number. Name, division, rating and results stay admin only. Every self-edit is written to the audit log.
+
+Privacy and caching: `player_accounts` and `player_claims` have row level security with no public policy, so emails and requests are never readable through the public API. A signed-in player is not an admin (admins must be in `public.users`). `/account`, `/login`, `/auth/callback` and `/api/me` are sent with `Cache-Control: private, no-store`. Public pages stay cached; the header asks `/api/me` in the browser only when a sign-in cookie exists.
+
+### Switching player login on
+
+1. Run `supabase/migrations/20261115000004_player_accounts.sql` in the Supabase SQL editor (or `npm run db:migrate`).
+2. Supabase > Authentication > Sign In / Providers: turn on **Allow new users to sign up** and keep **Confirm email** on. This does not create admins.
+3. Supabase > Authentication > URL Configuration: set Site URL to the live site and add `https://<your-site>/auth/callback` to Redirect URLs.
+4. Google: in Google Cloud Console create an OAuth client (Web application) with the redirect URI `https://<project-ref>.supabase.co/auth/v1/callback`, then paste its Client ID and Secret into Supabase > Providers > Google. In Netlify set `PLAYER_LOGIN_GOOGLE=true`.
+5. Email links: Supabase's built-in mailer only sends to your own team members and a few emails an hour, so add custom SMTP first (Supabase > Authentication > Emails > SMTP, for example with Resend). Optionally edit the Magic Link template so links work on any device and include a code:
+   `<a href="{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=email">Sign in to MoonPadel</a> or enter this code: {{ .Token }}`
+   Then set `PLAYER_LOGIN_EMAIL=true` in Netlify.
+6. Redeploy. Until one of the two flags is on, the Login page says player accounts open soon.
+
 ## Running it locally
 
 You need Node 20 or newer and a Postgres 15+ database.
@@ -83,7 +108,7 @@ Checks: `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`.
 
 1. Create a project at supabase.com. Pick a region close to Dubai (for example Frankfurt or Mumbai).
 2. Run the migrations. Either paste the three files in `supabase/migrations` into the SQL editor in order, or set `DATABASE_URL` to the project and run `npm run db:migrate`. Do **not** run `db:local-auth-shim` against Supabase.
-3. In Authentication > Providers, keep Email enabled. Turn off public sign-ups: admins are created by script, not by signing up.
+3. In Authentication > Providers, keep Email enabled. Admins are created by script, not by signing up. Keep public sign-ups off until you switch on player accounts (see Player accounts).
 4. Create the first admin from your computer with all env vars set: `npm run admin:create -- you@example.com "a long password" "Your Name"`. This creates the Supabase Auth user and marks it as admin. More admins can be added later in Admin > Website settings.
 5. The `player-photos` storage bucket is created by the migration. Photo URLs in imports can also point anywhere public.
 
@@ -98,6 +123,8 @@ Checks: `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`.
 | `NEXT_PUBLIC_SITE_URL` | Your domain | For page metadata |
 | `AUTH_SECRET` | Generate one | Only for local login |
 | `ALLOW_LOCAL_AUTH` | | Leave empty in production |
+| `PLAYER_LOGIN_GOOGLE` | `true` to show Continue with Google | Needs the Google provider in Supabase |
+| `PLAYER_LOGIN_EMAIL` | `true` to show email sign-in links | Needs custom SMTP in Supabase |
 
 If `DATABASE_URL` is missing, the public pages show a "setup required" message instead of fake data.
 

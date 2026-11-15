@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Logo } from "./brand";
+import { AccountButton, useMe } from "./account-button";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -17,6 +18,7 @@ const NAV = [
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const me = useMe();
   const active = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-space/80 backdrop-blur-xl">
@@ -31,7 +33,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <Link href="/admin" className="btn-ghost btn-sm hidden sm:inline-flex">Admin login</Link>
+          <AccountButton me={me} />
           <button className="rounded-lg p-2 text-silver lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
@@ -43,7 +45,7 @@ export function SiteHeader() {
         {open && (
           <motion.nav initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden border-t border-line lg:hidden" aria-label="Mobile">
             <div className="container-page flex flex-col py-3">
-              {[...NAV, { href: "/admin", label: "Admin login" }].map((n) => (
+              {[...NAV, me.signedIn ? { href: "/account", label: "My profile" } : { href: "/login", label: "Player login" }].map((n) => (
                 <Link key={n.href} href={n.href} onClick={() => setOpen(false)} className={cn("rounded-lg px-3 py-3 text-sm font-semibold uppercase tracking-wider", active(n.href) ? "bg-white/5 text-white" : "text-muted")}>{n.label}</Link>
               ))}
             </div>

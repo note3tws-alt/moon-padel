@@ -19,7 +19,9 @@ export async function login(_prev: { error?: string } | null, fd: FormData): Pro
     const supabase = await supabaseServer();
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error || !data.user) return { error: "Email or password is incorrect." };
-    const [admin] = await sql()`select id from users where id = ${data.user.id} or email = ${email} limit 1`;
+    // Email fallback only for verified addresses (players can sign up themselves).
+    const verifiedEmail = data.user.email_confirmed_at ? email : null;
+    const [admin] = await sql()`select id from users where id = ${data.user.id} or (${verifiedEmail}::citext is not null and email = ${verifiedEmail}) limit 1`;
     if (!admin) {
       await supabase.auth.signOut();
       return { error: "This account is not an administrator." };

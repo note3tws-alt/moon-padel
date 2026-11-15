@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 const NAV = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/players", label: "Players" },
+  { href: "/admin/accounts", label: "Player accounts" },
   { href: "/admin/upload", label: "Upload data" },
   { href: "/admin/tournaments", label: "Tournaments" },
   { href: "/admin/matches", label: "Matches & results" },

@@ -5,8 +5,7 @@ import { adminMutation, formObject, type ActionState } from "@/lib/admin/action"
 import { nextPlayerCode, uniquePlayerSlug } from "@/lib/admin/players";
 import { audit } from "@/lib/audit";
 import { toCountryCode } from "@/lib/countries";
-import { supabaseStorageConfigured } from "@/lib/supabase/config";
-import { supabaseService } from "@/lib/supabase/server";
+import { uploadPlayerPhoto } from "@/lib/photos";
 
 const optNum = z.preprocess((v) => (v === "" || v == null ? null : v), z.coerce.number().finite().nullable());
 const optInt = z.preprocess((v) => (v === "" || v == null ? 0 : v), z.coerce.number().int().min(0));
@@ -33,19 +32,6 @@ const playerSchema = z.object({
   base_losses: optInt,
 });
 
-async function uploadPhoto(file: File | null, playerCode: string): Promise<string | null> {
-  if (!file || file.size === 0) return null;
-  if (!supabaseStorageConfigured()) throw new Error("Photo upload needs Supabase Storage. Paste an image URL instead, or add the Supabase keys.");
-  if (!/^image\/(png|jpe?g|webp)$/.test(file.type)) throw new Error("Photo must be PNG, JPG or WebP.");
-  if (file.size > 3 * 1024 * 1024) throw new Error("Photo must be under 3 MB.");
-  const ext = file.type.split("/")[1].replace("jpeg", "jpg");
-  const path = `${playerCode}-${Date.now()}.${ext}`;
-  const sb = supabaseService();
-  const { error } = await sb.storage.from("player-photos").upload(path, file, { contentType: file.type, upsert: true });
-  if (error) throw new Error(`Photo upload failed: ${error.message}`);
-  return sb.storage.from("player-photos").getPublicUrl(path).data.publicUrl;
-}
-
 export async function savePlayer(_prev: ActionState, fd: FormData): Promise<ActionState> {
   const id = (fd.get("id") as string) || null;
   let createdId: string | null = null;
@@ -54,7 +40,7 @@ export async function savePlayer(_prev: ActionState, fd: FormData): Promise<Acti
     const country = v.country ? toCountryCode(v.country) : null;
     if (v.country && !country) throw new Error(`Unknown country "${v.country}". Use a 2-letter code like AE or ES.`);
     const code = v.player_code ?? (id ? null : await nextPlayerCode(tx));
-    const photo = (await uploadPhoto(fd.get("photo_file") as File | null, code ?? id ?? "player")) ?? v.photo_url;
+    const photo = (await uploadPlayerPhoto(fd.get("photo_file") as File | null, code ?? id ?? "player")) ?? v.photo_url;
     const fields = {
       full_name: v.full_name, country_code: country, nationality: v.nationality, photo_url: photo, playing_side: v.playing_side,
       division_id: v.division_id, status: v.status, base_rating: v.base_rating, base_points: v.base_points, base_tournaments: v.base_tournaments,
