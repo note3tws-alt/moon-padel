@@ -1,10 +1,4 @@
 import Link from "next/link";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Privacy policy",
-  description: "What the MoonPadel league website collects, why, who can see it, and how to ask for changes or removal.",
-};
 
 const UPDATED = "15 November 2026";
 
