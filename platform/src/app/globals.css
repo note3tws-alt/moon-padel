@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html { background: #04070F; }
+body { @apply bg-space text-silver antialiased; font-feature-settings: "tnum" 1; }
+::selection { background: rgba(46, 139, 234, 0.4); }
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+  .h-display { @apply font-extrabold uppercase leading-[0.92] tracking-tightish; }
+  .label { @apply text-[11px] font-bold uppercase tracking-label text-ice; }
+  .card { @apply rounded-2xl border border-line bg-night/80 shadow-card backdrop-blur; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold uppercase tracking-wider transition focus:outline-none focus-visible:ring-2 focus-visible:ring-electric disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-electric text-white hover:bg-[#4a9df0] shadow-[0_0_30px_-6px_rgba(46,139,234,0.7)]; }
+  .btn-ghost { @apply btn border border-line text-silver hover:border-ice/40 hover:bg-white/5; }
+  .btn-danger { @apply btn border border-loss/40 text-[#f2a08c] hover:bg-loss/10; }
+  .btn-sm { @apply px-3.5 py-1.5 text-xs; }
+  .input { @apply w-full rounded-xl border border-line bg-space/70 px-3.5 py-2.5 text-sm text-silver placeholder:text-muted/60 focus:border-electric focus:outline-none focus:ring-1 focus:ring-electric; }
+  .select { @apply input appearance-none pr-8 bg-no-repeat; background-position: right 0.75rem center; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238FA0BC' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
+  .field-label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider; }
+  .table-base { @apply w-full text-left text-sm; }
+  .table-base th { @apply whitespace-nowrap px-3 py-3 text-[11px] font-bold uppercase tracking-wider text-muted; }
+  .table-base td { @apply whitespace-nowrap px-3 py-3; }
+  .table-base tbody tr { @apply border-t border-line transition-colors hover:bg-white/[0.03]; }
+  .text-gradient-padel { @apply bg-padel-gradient bg-clip-text text-transparent; }
+}
+
+/* Moon phases: built by masking the real moon mark, never redrawn. */
+.phase-crescent { -webkit-mask-image: radial-gradient(circle at 30% 50%, transparent 52%, #000 53%); mask-image: radial-gradient(circle at 30% 50%, transparent 52%, #000 53%); }
+.phase-half { -webkit-mask-image: linear-gradient(90deg, transparent 50%, #000 50%); mask-image: linear-gradient(90deg, transparent 50%, #000 50%); }
+.phase-gibbous { -webkit-mask-image: radial-gradient(circle at -10% 50%, transparent 38%, #000 39%); mask-image: radial-gradient(circle at -10% 50%, transparent 38%, #000 39%); }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
