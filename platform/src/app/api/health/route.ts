@@ -33,6 +33,19 @@ export async function GET() {
       }
     }),
   );
+  for (const pipeline of [100, 1]) {
+    steps.push(
+      await step(`10 parallel queries, pipeline ${pipeline}`, async () => {
+        const raw = postgres(process.env.DATABASE_URL!, { prepare: false, max: 2, ssl: "require", connect_timeout: 6, max_pipeline: pipeline } as postgres.Options<{}>);
+        try {
+          await Promise.all(Array.from({ length: 10 }, () => raw`select pg_sleep(0.05)`));
+        } finally {
+          await raw.end({ timeout: 1 }).catch(() => {});
+        }
+      }),
+    );
+  }
+  steps.push(await step("app pool 12 parallel", () => Promise.all(Array.from({ length: 12 }, () => sql()`select 1`))));
   steps.push(await step("app pool select 1", () => sql()`select 1`));
   steps.push(await step("settings", () => getSettings()));
   steps.push(await step("demo counts", () => demoCounts()));

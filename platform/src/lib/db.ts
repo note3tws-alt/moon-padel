@@ -19,9 +19,12 @@ function create() {
     throw new DatabaseNotConfiguredError();
   }
   const local = /localhost|127\.0\.0\.1/.test(url);
-  return postgres(url, {
+  const options = {
     prepare: false,
-    max: Number(process.env.DATABASE_POOL_MAX ?? (local ? 10 : 3)),
+    max: Number(process.env.DATABASE_POOL_MAX ?? (local ? 10 : 5)),
+    // Supabase's transaction pooler can stall when several queries are
+    // pipelined on one connection, so send one query at a time per connection.
+    max_pipeline: local ? 100 : 1,
     idle_timeout: 20,
     connect_timeout: 10,
     ssl: local || process.env.DATABASE_SSL === "disable" ? false : "require",
@@ -33,7 +36,8 @@ function create() {
     },
     transform: { undefined: null },
     onnotice: () => {},
-  });
+  };
+  return postgres(url, options as postgres.Options<Record<string, postgres.PostgresType>>);
 }
 
 export class DatabaseNotConfiguredError extends Error {
