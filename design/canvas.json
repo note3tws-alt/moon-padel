@@ -1,0 +1,157 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-30T04:50:00Z"
+  },
+  "title": "Moon Padel Brand Board & Launch Posts",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1600,
+      "h": 2000,
+      "title": "Brand identity board (proposed)"
+    },
+    "Profile-Preview.dc.html": {
+      "x": 2240,
+      "y": 0,
+      "w": 430,
+      "h": 932,
+      "title": "Instagram profile on Day 7"
+    },
+    "Teaser3-LightsOn.dc.html": {
+      "x": 0,
+      "y": 2420,
+      "w": 1080,
+      "h": 1440,
+      "title": "Day 3 \u00b7 Lights on \u00b7 left tile"
+    },
+    "Teaser2-SoundOn.dc.html": {
+      "x": 1160,
+      "y": 2420,
+      "w": 1080,
+      "h": 1440,
+      "title": "Day 2 \u00b7 Sound on \u00b7 middle tile"
+    },
+    "Teaser1-SomethingRises.dc.html": {
+      "x": 2320,
+      "y": 2420,
+      "w": 1080,
+      "h": 1440,
+      "title": "Day 1 \u00b7 Something rises \u00b7 right tile"
+    },
+    "Day4-Reveal.dc.html": {
+      "x": 0,
+      "y": 4280,
+      "w": 1080,
+      "h": 1440,
+      "title": "Day 4 \u00b7 Reveal poster"
+    },
+    "Day5-Carousel-Cover.dc.html": {
+      "x": 1160,
+      "y": 4280,
+      "w": 1080,
+      "h": 1440,
+      "title": "Day 5 \u00b7 Carousel cover"
+    },
+    "Day5-Carousel-Slide.dc.html": {
+      "x": 2320,
+      "y": 4280,
+      "w": 1080,
+      "h": 1440,
+      "title": "Day 5 \u00b7 Carousel inner slide"
+    },
+    "Day7-FirstMoonNight.dc.html": {
+      "x": 3480,
+      "y": 4280,
+      "w": 1080,
+      "h": 1440,
+      "title": "Day 7 \u00b7 First Moon Night"
+    },
+    "Day6-LevelStory.dc.html": {
+      "x": 0,
+      "y": 6140,
+      "w": 1080,
+      "h": 1920,
+      "title": "Day 6 \u00b7 Which phase are you? (Story)"
+    },
+    "Story-Countdown.dc.html": {
+      "x": 1160,
+      "y": 6140,
+      "w": 1080,
+      "h": 1920,
+      "title": "Story \u00b7 Reveal countdown"
+    },
+    "Story-FoundingList.dc.html": {
+      "x": 2320,
+      "y": 6140,
+      "w": 1080,
+      "h": 1920,
+      "title": "Story \u00b7 Founding players list"
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Profile-Preview.dc.html",
+    "Teaser3-LightsOn.dc.html",
+    "Teaser2-SoundOn.dc.html",
+    "Teaser1-SomethingRises.dc.html",
+    "Day4-Reveal.dc.html",
+    "Day5-Carousel-Cover.dc.html",
+    "Day5-Carousel-Slide.dc.html",
+    "Day7-FirstMoonNight.dc.html",
+    "Day6-LevelStory.dc.html",
+    "Story-Countdown.dc.html",
+    "Story-FoundingList.dc.html"
+  ],
+  "notes": {
+    "t1": {
+      "x": 0,
+      "y": -300,
+      "text": "MoonPadel \u00b7 brand system v3, built on the founders' logo",
+      "kind": "title1",
+      "maxW": 2670
+    },
+    "s1": {
+      "x": 1700,
+      "y": 0,
+      "w": 460,
+      "fill": "orange",
+      "text": "Built on the founders' own logo, colours and deck imagery.\n\nThe moon mark is a moon, a padel ball (seam) and a racket face (holes). The campaign shows it in phases: crescent to tease, half to announce, gibbous for hype, full moon on match night.\n\nColour from the logo: Space, Night, Court, Electric, Ice, Silver. Medal gold for winners only.\n\nType: Montserrat, the closest open match to the wordmark.\n\nDeck images are 1,240px renders; swap in high-res files and real footage when available."
+    },
+    "t2": {
+      "x": 0,
+      "y": 2120,
+      "text": "Days 1 to 3 \u00b7 Moon-phase teasers, as they sit on the grid",
+      "kind": "title1",
+      "maxW": 3400
+    },
+    "s2": {
+      "x": 3500,
+      "y": 2420,
+      "w": 460,
+      "fill": "blue",
+      "text": "Post order: right tile on Day 1, middle on Day 2, left on Day 3.\n\nThe moon mark waxes from crescent to full, and the court goes from dim lines to fully lit on Day 3.\n\nOnly three feed posts follow (Days 4, 5, 7), so this row stays intact. Day 6 runs in Stories.\n\nAll feed posts are 1080 x 1440 (3:4)."
+    },
+    "t3": {
+      "x": 0,
+      "y": 3980,
+      "text": "Days 4, 5 and 7 \u00b7 Launch posts",
+      "kind": "title1",
+      "maxW": 4560
+    },
+    "t4": {
+      "x": 0,
+      "y": 5840,
+      "text": "Stories \u00b7 Day 6 quiz and templates",
+      "kind": "title1",
+      "maxW": 3400
+    }
+  },
+  "designSystems": []
+}
