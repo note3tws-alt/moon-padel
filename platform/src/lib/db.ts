@@ -18,7 +18,9 @@ function create() {
   if (!url) {
     throw new DatabaseNotConfiguredError();
   }
-  return createClient(url);
+  // DATABASE_SESSION_POOLER=1 switches Supabase's transaction pooler (6543) to its session pooler (5432).
+  const useSession = process.env.DATABASE_SESSION_POOLER === "1" && url.includes(":6543/");
+  return createClient(useSession ? url.replace(":6543/", ":5432/") : url);
 }
 
 export function createClient(url: string) {
