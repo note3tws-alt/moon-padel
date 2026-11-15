@@ -30,7 +30,9 @@ export default async function AdminPlayers({ searchParams }: { searchParams: Pro
   return (
     <>
       <PageHeader title="Players" description={`${total} players${division ? ` in ${division.code}` : ""}. Contact details are private to admins.`}
-        actions={<><Link href="/admin/players/new" className="btn-primary btn-sm">Add player</Link><Link href="/admin/upload?kind=players" className="btn-ghost btn-sm">Bulk upload</Link><a href="/api/admin/export/players" className="btn-ghost btn-sm">Export CSV</a></>} />
+        actions={<><Link href="/admin/players/new" className="btn-primary btn-sm">Add player</Link><Link href="/admin/upload?kind=players" className="btn-ghost btn-sm">Bulk upload</Link>{/* A file download from an API route, not a page; the public catch-all route confuses this lint rule. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a href="/api/admin/export/players" className="btn-ghost btn-sm">Export CSV</a></>} />
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <form className="flex gap-2" action="/admin/players">
           {division && <input type="hidden" name="division" value={division.code} />}
