@@ -74,9 +74,11 @@ export async function getAdmin(): Promise<AdminUser | null> {
     const { data } = await supabase.auth.getUser();
     if (!data.user) return null;
     // Match on auth user id first, then on email (lets you add admins by email before they first sign in).
+    // The email path needs a verified address: players can create their own accounts, so an
+    // unverified sign-up using an admin's email must never be treated as that admin.
     const byId = await lookup({ id: data.user.id });
     if (byId) return byId;
-    if (data.user.email) {
+    if (data.user.email && data.user.email_confirmed_at) {
       const byEmail = await lookup({ email: data.user.email });
       if (byEmail) {
         await sql()`update users set id = ${data.user.id} where id = ${byEmail.id}`;

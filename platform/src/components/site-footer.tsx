@@ -29,6 +29,7 @@ export function SiteFooter({ settings }: { settings: GeneralSettings }) {
             </li>
             {settings.instagramHandle && <li><a className="hover:text-silver" href={`https://instagram.com/${settings.instagramHandle.replace(/^@/, "")}`} target="_blank" rel="noreferrer">Instagram</a></li>}
             {settings.contactEmail && <li><a className="hover:text-silver" href={`mailto:${settings.contactEmail}`}>{settings.contactEmail}</a></li>}
+            <li><Link className="hover:text-silver" href="/login">Player login</Link></li>
             <li><Link className="hover:text-silver" href="/admin">Admin login</Link></li>
           </ul>
         </div>
