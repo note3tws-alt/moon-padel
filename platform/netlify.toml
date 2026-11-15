@@ -1,12 +1,15 @@
 # Netlify site for the league platform (separate from the static site in /site).
 # In Netlify: Add new site > Import from Git > this repo, Base directory = platform.
-# Netlify detects Next.js and uses its Next.js runtime automatically.
+# The Next.js runtime plugin below turns pages, API routes and middleware into Netlify Functions.
 [build]
   command = "npm run build"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [[headers]]
   for = "/admin/*"
