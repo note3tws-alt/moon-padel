@@ -246,3 +246,8 @@ function Achievement({ title, sub, gold }: { title: string; sub?: string; gold?:
     </li>
   );
 }
+
+// Rendered on first visit, then cached like the rest of the public site.
+export async function generateStaticParams() {
+  return [];
+}

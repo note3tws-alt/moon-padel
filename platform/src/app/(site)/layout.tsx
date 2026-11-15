@@ -4,7 +4,8 @@ import { SetupRequired } from "@/components/setup-required";
 import { isDatabaseConfigured } from "@/lib/db";
 import { demoCounts, getSettings } from "@/lib/queries";
 
-export const dynamic = "force-dynamic";
+// Pages are cached and rebuilt at most every 5 minutes; admin changes refresh them at once.
+export const revalidate = 300;
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   if (!isDatabaseConfigured()) return <SetupRequired />;

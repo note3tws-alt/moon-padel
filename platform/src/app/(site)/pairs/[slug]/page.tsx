@@ -58,3 +58,8 @@ export default async function PairPage({ params }: { params: Promise<Params> }) 
     </main>
   );
 }
+
+// Rendered on first visit, then cached like the rest of the public site.
+export async function generateStaticParams() {
+  return [];
+}
