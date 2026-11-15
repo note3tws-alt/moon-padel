@@ -36,7 +36,7 @@ export async function GET() {
   for (const pipeline of [100, 1]) {
     steps.push(
       await step(`10 parallel queries, pipeline ${pipeline}`, async () => {
-        const raw = postgres(process.env.DATABASE_URL!, { prepare: false, max: 2, ssl: "require", connect_timeout: 6, max_pipeline: pipeline } as postgres.Options<{}>);
+        const raw = postgres(process.env.DATABASE_URL!, { prepare: false, max: 2, ssl: "require", connect_timeout: 6, max_pipeline: pipeline } as postgres.Options<Record<string, postgres.PostgresType>>);
         try {
           await Promise.all(Array.from({ length: 10 }, () => raw`select pg_sleep(0.05)`));
         } finally {
