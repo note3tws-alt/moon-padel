@@ -18,6 +18,10 @@ function create() {
   if (!url) {
     throw new DatabaseNotConfiguredError();
   }
+  return createClient(url);
+}
+
+export function createClient(url: string) {
   const local = /localhost|127\.0\.0\.1/.test(url);
   const options = {
     prepare: false,

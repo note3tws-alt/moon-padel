@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import postgres from "postgres";
-import { isDatabaseConfigured, sql } from "@/lib/db";
-import { demoCounts, getSettings } from "@/lib/queries";
+import { createClient, isDatabaseConfigured, sql } from "@/lib/db";
+import {
+  demoCounts, getDivisions, getLatestChampions, getLeagueStats, getMonthlyChampions, getRisingPlayers, getSettings, getTopByDivision, getUpcomingTournaments,
+} from "@/lib/queries";
+import { currentPeriod } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -33,21 +36,33 @@ export async function GET() {
       }
     }),
   );
-  for (const pipeline of [100, 1]) {
-    steps.push(
-      await step(`10 parallel queries, pipeline ${pipeline}`, async () => {
-        const raw = postgres(process.env.DATABASE_URL!, { prepare: false, max: 2, ssl: "require", connect_timeout: 6, max_pipeline: pipeline } as postgres.Options<Record<string, postgres.PostgresType>>);
-        try {
-          await Promise.all(Array.from({ length: 10 }, () => raw`select pg_sleep(0.05)`));
-        } finally {
-          await raw.end({ timeout: 1 }).catch(() => {});
-        }
-      }),
-    );
-  }
-  steps.push(await step("app pool 12 parallel", () => Promise.all(Array.from({ length: 12 }, () => sql()`select 1`))));
   steps.push(await step("app pool select 1", () => sql()`select 1`));
   steps.push(await step("settings", () => getSettings()));
   steps.push(await step("demo counts", () => demoCounts()));
+  const period = currentPeriod();
+  const homeQueries: [string, () => Promise<unknown>][] = [
+    ["divisions", () => getDivisions()],
+    ["upcoming", () => getUpcomingTournaments(6)],
+    ["top by division", () => getTopByDivision(period)],
+    ["monthly champions", () => getMonthlyChampions(period)],
+    ["latest champions", () => getLatestChampions()],
+    ["rising players", () => getRisingPlayers(7, 5)],
+    ["league stats", () => getLeagueStats()],
+  ];
+  for (const [name, fn] of homeQueries) steps.push(await step(`home: ${name}`, fn, 5000));
+
+  // Same kind of queries through Supabase's session pooler (port 5432) for comparison.
+  const url = process.env.DATABASE_URL!;
+  if (url.includes(":6543/")) {
+    const session = createClient(url.replace(":6543/", ":5432/"));
+    try {
+      steps.push(await step("session: select 1", () => session`select 1`, 5000));
+      steps.push(await step("session: params", () => session`select ${5}::int as n, ${"2026-11-01"}::date as d`, 5000));
+      steps.push(await step("session: 12 parallel", () => Promise.all(Array.from({ length: 12 }, (_, i) => session`select ${i}::int as n`)), 5000));
+    } finally {
+      await session.end({ timeout: 1 }).catch(() => {});
+    }
+  }
+  steps.push(await step("pool: params", () => sql()`select ${5}::int as n, ${"2026-11-01"}::date as d`, 5000));
   return NextResponse.json({ steps }, { headers: { "cache-control": "no-store" } });
 }
