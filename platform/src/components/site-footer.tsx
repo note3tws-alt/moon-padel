@@ -34,7 +34,7 @@ export function SiteFooter({ settings }: { settings: GeneralSettings }) {
           </ul>
         </div>
       </div>
-      <div className="border-t border-line py-5 text-center text-xs text-muted">© {new Date().getFullYear()} {settings.leagueName}. All rankings come from verified results.</div>
+      <div className="border-t border-line py-5 text-center text-xs text-muted">© {new Date().getFullYear()} {settings.leagueName}. All rankings come from verified results. <Link className="ml-1 underline-offset-2 hover:text-silver hover:underline" href="/privacy">Privacy policy</Link></div>
     </footer>
   );
 }
