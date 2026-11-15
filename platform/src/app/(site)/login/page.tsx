@@ -61,7 +61,7 @@ export default async function PlayerLoginPage({ searchParams }: { searchParams: 
 
         <div className="mt-6 space-y-2 text-center text-xs text-muted">
           <p>New to MoonPadel? Sign in, then ask us to add you or connect your existing player profile.</p>
-          <p>Your email is used to sign in and is never shown publicly.</p>
+          <p>Your email is used to sign in and is never shown publicly. <Link href="/privacy" className="hover:text-silver">Privacy policy</Link></p>
           <p><Link href="/admin/login" className="hover:text-silver">Admin sign in</Link></p>
         </div>
       </div>

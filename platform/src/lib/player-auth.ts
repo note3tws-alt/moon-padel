@@ -126,7 +126,7 @@ export async function searchClaimablePlayers(q: string) {
 /** Only same-site paths are allowed as a post-login destination. */
 export function safeNext(next: unknown, fallback = "/account"): string {
   if (typeof next !== "string" || !next.startsWith("/") || next.startsWith("//") || next.startsWith("/\\")) return fallback;
-  if (next.startsWith("/admin") || next.startsWith("/api") || next.startsWith("/auth")) return fallback;
+  if (next.startsWith("/api") || next.startsWith("/auth")) return fallback;
   return next;
 }
 

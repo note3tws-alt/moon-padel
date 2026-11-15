@@ -12,7 +12,7 @@ function callbackUrl(origin: string, next: string) {
 
 export async function signInWithGoogle(fd: FormData) {
   const next = safeNext(fd.get("next"));
-  if (!playerLoginMethods().google) redirect("/login?error=method");
+  if (!playerLoginMethods().google) redirect(next.startsWith("/admin") ? "/admin/login" : "/login?error=method");
   const supabase = await supabaseServer();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
