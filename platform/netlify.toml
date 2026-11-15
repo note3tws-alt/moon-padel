@@ -2,7 +2,7 @@
 # In Netlify: Add new site > Import from Git > this repo, Base directory = platform.
 # The Next.js runtime plugin below turns pages, API routes and middleware into Netlify Functions.
 [build]
-  command = "npm run build"
+  command = "node scripts/check-db-url.mjs; npm run build"
   publish = ".next"
 
 [build.environment]
