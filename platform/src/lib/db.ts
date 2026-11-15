@@ -27,7 +27,9 @@ export function createClient(url: string) {
   const local = /localhost|127\.0\.0\.1/.test(url);
   const options = {
     prepare: false,
-    max: Number(process.env.DATABASE_POOL_MAX ?? (local ? 10 : 5)),
+    // During `next build` use one connection per worker: opening several pooler
+    // connections at once has stalled the home page prerender on Netlify.
+    max: Number(process.env.DATABASE_POOL_MAX ?? (local ? 10 : process.env.NEXT_PHASE === "phase-production-build" ? 1 : 5)),
     // Supabase's transaction pooler can stall when several queries are
     // pipelined on one connection, so send one query at a time per connection.
     max_pipeline: local ? 100 : 1,
