@@ -30,7 +30,7 @@ export async function POST(req: Request) {
   if (!parsed.success) return NextResponse.json({ error: "Invalid request", details: parsed.error.flatten() }, { status: 400 });
   try {
     const result = await runImport({ ...parsed.data, admin });
-    if (result.committed) refreshPublicSite();
+    if (result.committed) await refreshPublicSite();
     return NextResponse.json(result);
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 400 });

@@ -101,7 +101,7 @@ export async function updateMyProfile(_prev: FormState, fd: FormData): Promise<F
                values (null, ${user.email}, 'player.self_update', 'player', ${player.id}, ${tx.json(JSON.parse(JSON.stringify(before)))}, ${tx.json(JSON.parse(JSON.stringify(after)))})`;
       await tx`update player_accounts set last_seen_at = now() where auth_user_id = ${user.id}`;
     });
-    refreshPublicSite();
+    await refreshPublicSite();
     return { ok: true, message: "Profile saved." };
   } catch (e) {
     return fail(e);

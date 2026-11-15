@@ -279,7 +279,7 @@ export async function loadDemo(): Promise<ActionState> {
     const r = await seedDemoData();
     const { sql } = await import("@/lib/db");
     await sql().begin((tx) => audit(tx, admin, "demo.load", "demo", null, undefined, r));
-    refreshPublicSite();
+    await refreshPublicSite();
     return { ok: true, message: `Demo data loaded: ${r.players} players, ${r.tournaments} tournaments` };
   } catch (e) { return toError(e); }
 }

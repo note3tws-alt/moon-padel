@@ -4,8 +4,10 @@ import { SetupRequired } from "@/components/setup-required";
 import { isDatabaseConfigured } from "@/lib/db";
 import { demoCounts, getSettings } from "@/lib/queries";
 
-// Pages are cached and rebuilt at most every 5 minutes; admin changes refresh them at once.
-export const revalidate = 300;
+// Rendered on request (never during the build, where database calls stall on
+// Netlify). Speed comes from Netlify's CDN cache, set in middleware.ts and
+// cleared after admin changes by refreshPublicSite().
+export const dynamic = "force-dynamic";
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   if (!isDatabaseConfigured()) return <SetupRequired />;

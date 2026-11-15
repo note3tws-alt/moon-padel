@@ -154,7 +154,3 @@ function Info({ k, v }: { k: string; v: React.ReactNode }) {
   return <div><dt className="text-[11px] font-bold uppercase tracking-wider text-muted">{k}</dt><dd className="mt-1 font-semibold">{v}</dd></div>;
 }
 
-// Rendered on first visit, then cached like the rest of the public site.
-export async function generateStaticParams() {
-  return [];
-}

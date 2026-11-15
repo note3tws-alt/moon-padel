@@ -24,7 +24,7 @@ export async function adminMutation(
       if (shouldRecalc) await recalculateAll(opts.trigger ?? "admin", tx);
       return r;
     });
-    refreshPublicSite();
+    await refreshPublicSite();
     if (typeof result === "string") return { ok: true, message: result };
     if (result && typeof result === "object") return { ok: true, message: result.message, data: result.data };
     return { ok: true, message: "Saved" };
