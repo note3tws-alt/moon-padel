@@ -1,5 +1,6 @@
 import "server-only";
 import { sql } from "./db";
+import { cache } from "react";
 import { currentPeriod, todayDubai } from "./utils";
 import { loadActiveConfig } from "./recalc";
 
@@ -23,7 +24,10 @@ const GENERAL_DEFAULTS: GeneralSettings = {
   city: "Dubai", whatsappNumber: "", instagramHandle: "", contactEmail: "", showDemoBanner: true,
 };
 
-export async function getSettings(): Promise<{ general: GeneralSettings; rules: RulesSettings }> {
+/** Once per request: the layout and the page both read settings. */
+export const getSettings = cache(loadSettings);
+
+async function loadSettings(): Promise<{ general: GeneralSettings; rules: RulesSettings }> {
   const rows = await sql()`select key, value from site_settings where key in ('general', 'rules')`;
   const map = Object.fromEntries(rows.map((r) => [r.key, r.value]));
   return {

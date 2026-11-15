@@ -4,20 +4,6 @@ import { createServerClient } from "@supabase/ssr";
 const PRIVATE = "private, no-store, max-age=0";
 
 /**
- * Public league pages are the same for every visitor (the header's account
- * button loads per person from /api/me in the browser), so Netlify's CDN may
- * cache them. Fresh for 60s, then served stale while it refreshes in the
- * background. Admin changes purge the tag at once (lib/cache.ts).
- */
-const CDN_TAG = "league-pages";
-const PUBLIC_CDN = "public, durable, s-maxage=60, stale-while-revalidate=86400";
-const PUBLIC_PATHS = /^\/(leaderboard|players|pairs|tournaments|rules|privacy)?(\/|$)/;
-
-function isPublicPage(pathname: string) {
-  return PUBLIC_PATHS.test(pathname) && !pathname.startsWith("/api") && !pathname.startsWith("/admin");
-}
-
-/**
  * Admin: keeps /admin behind a sign-in. The admin layout re-checks the user
  * against public.users on every request (a signed-in player is NOT an admin);
  * this is the first, cheap gate and also refreshes Supabase sessions.
@@ -28,16 +14,6 @@ function isPublicPage(pathname: string) {
  */
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  if (isPublicPage(pathname)) {
-    const pub = NextResponse.next();
-    if (req.method === "GET" || req.method === "HEAD") {
-      pub.headers.set("Netlify-CDN-Cache-Control", PUBLIC_CDN);
-      pub.headers.set("Netlify-Cache-Tag", CDN_TAG);
-      // Client-side navigation fetches (RSC payloads) must not share a cache entry with the HTML.
-      pub.headers.set("Netlify-Vary", "header=RSC|Next-Router-Prefetch|Next-Router-Segment-Prefetch");
-    }
-    return pub;
-  }
   const isAdminArea = pathname.startsWith("/admin") || pathname.startsWith("/api/admin");
   const res = NextResponse.next({ request: req });
   res.headers.set("Cache-Control", PRIVATE);
@@ -79,19 +55,4 @@ export async function middleware(req: NextRequest) {
   return res;
 }
 
-export const config = {
-  matcher: [
-    "/admin/:path*",
-    "/api/admin/:path*",
-    "/account/:path*",
-    "/account",
-    "/login",
-    "/",
-    "/leaderboard/:path*",
-    "/players/:path*",
-    "/pairs/:path*",
-    "/tournaments/:path*",
-    "/rules",
-    "/privacy",
-  ],
-};
+export const config = { matcher: ["/admin/:path*", "/api/admin/:path*", "/account/:path*", "/account", "/login"] };
