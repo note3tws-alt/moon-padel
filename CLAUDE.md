@@ -17,6 +17,8 @@ Padel tournament and events brand. Work here covers brand identity, the Instagra
 | `design/Day7-FirstMoonNight.dc.html` | Day 7 first event poster |
 | `design/Story-*.dc.html` | Story templates: reveal countdown, founding players list |
 | `design/Profile-Preview.dc.html` | Mock of the Instagram profile on Day 7 |
+| `brand/` | Logo kit: moon mark, lockups, icons, social profile and highlight images, usage rules (`brand/README.md`) |
+| `exports/posters/` | PNG exports of every design board, using the real moon mark (Dubai copy, court photos still to come) |
 
 The `.dc.html` files are the source files of the Claude Design canvas "Moon Padel Brand Board & Launch Posts" (https://claude.ai/artifact/8yeSLsydutgqcExXMFR8Cc). Each one is a single fixed-size board with inline styles. They load `./support.js` from the canvas runtime, which is not included, so they are sources to edit, not standalone pages.
 
@@ -51,7 +53,7 @@ Built on the founders' own logo and deck. Everything below is proposed until the
 - No em dashes in any copy.
 - Never invent dates, venues, fees, prizes, rules or registration numbers. Use bracketed placeholders such as `[DATE]` until the founders confirm.
 - Treat taglines, level names (Crescent, Half moon, Gibbous, Full moon), the Full Moon Series and the visual direction as concepts, not approved decisions.
-- Launch market is assumed to be Dubai and still needs confirming.
+- Launch market: Dubai (confirmed by Hola, 15 Nov 2026). Fees in AED as `[FEE]` placeholders.
 - Use urgency or limited-place messaging only when it reflects real event conditions.
 - Captions: natural and confident, few emojis, few hashtags.
 - Every asset should look like it belongs to the same brand. Keep to the colours, type and moon-phase system above.
