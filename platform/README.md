@@ -104,7 +104,7 @@ If `DATABASE_URL` is missing, the public pages show a "setup required" message i
 ## Deploying on Netlify
 
 1. Add a new site from the same GitHub repository.
-2. Set **Base directory** to `platform`. Netlify reads `platform/netlify.toml` and detects Next.js on its own.
+2. Set **Base directory** to `platform`. Netlify reads `platform/netlify.toml`, which turns on the Next.js runtime plugin.
 3. Add the environment variables above in Site configuration > Environment variables.
 4. Deploy, then log in at `/admin`.
 
