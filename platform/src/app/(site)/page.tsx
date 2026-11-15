@@ -1,3 +1,4 @@
+import { isDatabaseConfigured } from "@/lib/db";
 import Link from "next/link";
 import { MoonMark, DivisionBadge } from "@/components/brand";
 import { Avatar, EmptyState, Flag, SectionHeading, StatTile } from "@/components/ui";
@@ -15,6 +16,7 @@ function previousPeriod(p: string) {
 }
 
 export default async function HomePage() {
+  if (!isDatabaseConfigured()) return null; // the layout shows the setup message
   const period = currentPeriod();
   const lastPeriod = previousPeriod(period);
   const [{ general }, divisions, upcoming, top, champs, latest, rising7, rising30, stats] = await Promise.all([
