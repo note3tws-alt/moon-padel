@@ -1,5 +1,5 @@
 import "server-only";
-import { revalidatePath } from "next/cache";
+import { refreshPublicSite } from "@/lib/cache";
 import { ZodError } from "zod";
 import { assertAdmin, type AdminUser } from "../auth";
 import { sql, type Tx } from "../db";
@@ -24,7 +24,7 @@ export async function adminMutation(
       if (shouldRecalc) await recalculateAll(opts.trigger ?? "admin", tx);
       return r;
     });
-    revalidatePath("/", "layout");
+    refreshPublicSite();
     if (typeof result === "string") return { ok: true, message: result };
     if (result && typeof result === "object") return { ok: true, message: result.message, data: result.data };
     return { ok: true, message: "Saved" };

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { refreshPublicSite } from "@/lib/cache";
 import { z } from "zod";
 import { getAdmin } from "@/lib/auth";
 import { runImport } from "@/lib/import/process";
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
   if (!parsed.success) return NextResponse.json({ error: "Invalid request", details: parsed.error.flatten() }, { status: 400 });
   try {
     const result = await runImport({ ...parsed.data, admin });
-    if (result.committed) revalidatePath("/", "layout");
+    if (result.committed) refreshPublicSite();
     return NextResponse.json(result);
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 400 });

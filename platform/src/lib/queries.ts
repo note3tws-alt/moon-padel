@@ -1,5 +1,7 @@
 import "server-only";
+import { unstable_cache } from "next/cache";
 import { sql } from "./db";
+import { LEAGUE_TAG } from "./cache";
 import { currentPeriod, todayDubai } from "./utils";
 import { loadActiveConfig } from "./recalc";
 
@@ -23,7 +25,7 @@ const GENERAL_DEFAULTS: GeneralSettings = {
   city: "Dubai", whatsappNumber: "", instagramHandle: "", contactEmail: "", showDemoBanner: true,
 };
 
-export async function getSettings(): Promise<{ general: GeneralSettings; rules: RulesSettings }> {
+async function loadSettings(): Promise<{ general: GeneralSettings; rules: RulesSettings }> {
   const rows = await sql()`select key, value from site_settings where key in ('general', 'rules')`;
   const map = Object.fromEntries(rows.map((r) => [r.key, r.value]));
   return {
@@ -32,14 +34,21 @@ export async function getSettings(): Promise<{ general: GeneralSettings; rules: 
   };
 }
 
+/** Cached for the public site; admin changes clear it through refreshPublicSite(). */
+export const getSettings = unstable_cache(loadSettings, ["site-settings"], { tags: [LEAGUE_TAG], revalidate: 300 });
+
 export async function getDivisions(): Promise<Division[]> {
   return (await sql()`select * from divisions order by sort_order, code`) as unknown as Division[];
 }
 
-export async function demoCounts() {
-  const [r] = await sql()`select (select count(*) from players where is_demo)::int as players, (select count(*) from tournaments where is_demo)::int as tournaments`;
-  return r as { players: number; tournaments: number };
-}
+export const demoCounts = unstable_cache(
+  async () => {
+    const [r] = await sql()`select (select count(*) from players where is_demo)::int as players, (select count(*) from tournaments where is_demo)::int as tournaments`;
+    return { players: Number(r.players), tournaments: Number(r.tournaments) };
+  },
+  ["demo-counts"],
+  { tags: [LEAGUE_TAG], revalidate: 300 },
+);
 
 // ------------------------------------------------------------------- home
 export async function getUpcomingTournaments(limit = 6) {

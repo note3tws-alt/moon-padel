@@ -6,7 +6,7 @@ import { audit } from "@/lib/audit";
 import { hashPassword } from "@/lib/password";
 import { parseScoringConfig, TIE_BREAKERS, FINISH_ORDER } from "@/lib/scoring/config";
 import { seedDemoData, removeDemoData } from "@/lib/demo";
-import { revalidatePath } from "next/cache";
+import { refreshPublicSite } from "@/lib/cache";
 import { assertAdmin } from "@/lib/auth";
 import { toError } from "@/lib/admin/action";
 
@@ -279,7 +279,7 @@ export async function loadDemo(): Promise<ActionState> {
     const r = await seedDemoData();
     const { sql } = await import("@/lib/db");
     await sql().begin((tx) => audit(tx, admin, "demo.load", "demo", null, undefined, r));
-    revalidatePath("/", "layout");
+    refreshPublicSite();
     return { ok: true, message: `Demo data loaded: ${r.players} players, ${r.tournaments} tournaments` };
   } catch (e) { return toError(e); }
 }
