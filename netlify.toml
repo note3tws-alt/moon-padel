@@ -1,0 +1,3 @@
+# Netlify Git deploys: publish the static site in /site. No build step.
+[build]
+  publish = "site"
