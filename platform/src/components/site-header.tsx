@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Logo } from "./brand";
 import { AccountButton, useMe } from "./account-button";
 import { cn } from "@/lib/utils";
@@ -27,7 +26,7 @@ export function SiteHeader() {
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} className={cn("relative rounded-full px-4 py-2 text-[13px] font-semibold uppercase tracking-wider transition", active(n.href) ? "text-white" : "text-muted hover:text-silver")}>
-              {active(n.href) && <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-white/[0.06] ring-1 ring-line" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
+              {active(n.href) && <span className="absolute inset-0 rounded-full bg-white/[0.06] ring-1 ring-line" aria-hidden />}
               <span className="relative">{n.label}</span>
             </Link>
           ))}
@@ -41,17 +40,15 @@ export function SiteHeader() {
           </button>
         </div>
       </div>
-      <AnimatePresence>
-        {open && (
-          <motion.nav initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden border-t border-line lg:hidden" aria-label="Mobile">
+      {open && (
+          <nav className="menu-drop overflow-hidden border-t border-line lg:hidden" aria-label="Mobile">
             <div className="container-page flex flex-col py-3">
               {[...NAV, me.signedIn ? { href: "/account", label: "My profile" } : { href: "/login", label: "Player login" }].map((n) => (
                 <Link key={n.href} href={n.href} onClick={() => setOpen(false)} className={cn("rounded-lg px-3 py-3 text-sm font-semibold uppercase tracking-wider", active(n.href) ? "bg-white/5 text-white" : "text-muted")}>{n.label}</Link>
               ))}
             </div>
-          </motion.nav>
+          </nav>
         )}
-      </AnimatePresence>
     </header>
   );
 }

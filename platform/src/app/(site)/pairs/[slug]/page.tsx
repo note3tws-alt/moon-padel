@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { DivisionBadge } from "@/components/brand";
 import { Avatar, EmptyState, Flag, StatTile } from "@/components/ui";
-import { MonthlyBarChart } from "@/components/charts";
+import { MonthlyBarChart } from "@/components/charts-lazy";
 import { getPairProfile } from "@/lib/queries";
 import { fmtDate, fmtNumber, fmtRating, winPct } from "@/lib/utils";
 
