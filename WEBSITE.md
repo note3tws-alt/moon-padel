@@ -56,7 +56,10 @@ Each event can also take `start` (Dubai time, `"2027-01-09T20:00"`), `durationMi
 ## Speed
 
 - Montserrat is self-hosted (`assets/fonts/`, one variable file for weights 400 to 800, Latin Extended only loads if a page needs it). No Google Fonts request.
-- Images are WebP and sized for where they show: `logo-horizontal.webp` (header and footer), `moon-mark-256.webp` (small moon phases), `moon-mark.webp` (home hero only). Venue photos: 1280 x 720 WebP under 150 KB; they lazy load.
+- The moon mark comes in AVIF (with WebP fallback) at 192, 320, 420 and 560 px. The home hero picks the right size per screen and is preloaded; small moon phases use 192 px (320 px above 96 px). To regenerate, resize `brand/logo/moon-mark.png` and save AVIF quality 50 and WebP quality 65.
+- `build_site.py` inlines `site.css` into every page, so nothing blocks the first paint. Edit `site/assets/css/site.css` as usual; the build does the rest.
+- Venue photos: 1280 x 720 WebP under 150 KB; they lazy load.
+- Measured with Lighthouse (mobile, simulated slow 4G) on the built site: see the PR for scores. Re-check any time at pagespeed.web.dev once the site is live.
 - Below-the-fold images use `loading="lazy"`.
 
 ## Brand

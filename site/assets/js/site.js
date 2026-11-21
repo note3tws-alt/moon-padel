@@ -1,7 +1,7 @@
 (function () {
   "use strict";
   var C = window.MOON || {};
-  var MARK = "/assets/img/moon-mark-256.webp";
+  var MARK = "/assets/img/moon-mark-"; // + size + .avif / .webp
   var LEVEL_PHASE = { "Crescent": "crescent", "Half moon": "half", "Gibbous": "gibbous", "Full moon": "full" };
 
   function esc(s) {
@@ -16,9 +16,13 @@
   function isPlaceholder(s) { return /\[[^\]]+\]/.test(String(s || "")); }
 
   function phase(kind, size) {
-    return '<span class="phase ' + kind + '"' + (size ? ' style="width:' + size + 'px"' : "") + ' aria-hidden="true">' +
-      '<img class="ghost" src="' + MARK + '" alt="" loading="lazy">' +
-      '<img class="lit" src="' + MARK + '" alt="" loading="lazy"></span>';
+    var px = parseInt(size, 10) || 96;
+    var file = MARK + (px > 96 ? "320" : "192");
+    var img = function (cls) {
+      return '<picture><source type="image/avif" srcset="' + file + '.avif">' +
+        '<img class="' + cls + '" src="' + file + '.webp" alt="" width="' + px + '" height="' + px + '" loading="lazy" decoding="async"></picture>';
+    };
+    return '<span class="phase ' + kind + '"' + (size ? ' style="width:' + size + 'px"' : "") + ' aria-hidden="true">' + img("ghost") + img("lit") + "</span>";
   }
 
   function waLink(message) {
@@ -222,17 +226,28 @@
       "</div></article>";
   }
 
+  function pickEvents(limit) {
+    var evs = (C.events || []).slice();
+    if (limit) evs = evs.filter(function (e) { return e.status !== "done"; }).slice(0, limit);
+    return evs;
+  }
+  // Pure HTML for the event list. tools/build_site.py also calls this to pre-render the cards
+  // into the page, so nothing moves when the script runs.
+  function eventsHTML(limit) {
+    var evs = pickEvents(limit);
+    if (!evs.length) return '<div class="empty">No nights on the calendar yet. WhatsApp <strong>' + esc(C.whatsappKeyword || "MOON") + "</strong> and founding players hear first.</div>";
+    return evs.map(eventCard).join("");
+  }
+  window.MoonRender = { eventsHTML: eventsHTML };
+
   function renderEvents() {
     var list = document.getElementById("event-list");
     if (!list) return;
     var limit = parseInt(list.getAttribute("data-limit") || "0", 10);
-    var evs = (C.events || []).slice();
-    if (limit) evs = evs.filter(function (e) { return e.status !== "done"; }).slice(0, limit);
-    if (!evs.length) {
-      list.innerHTML = '<div class="empty">No nights on the calendar yet. WhatsApp <strong>' + esc(C.whatsappKeyword || "MOON") + "</strong> and founding players hear first.</div>";
-      return;
-    }
-    list.innerHTML = evs.map(eventCard).join("");
+    var evs = pickEvents(limit);
+    var html = eventsHTML(limit);
+    if (list.innerHTML !== html) list.innerHTML = html;
+    if (!evs.length) return;
     list.addEventListener("click", function (e) {
       var b = e.target.closest("[data-act]");
       if (!b) return;

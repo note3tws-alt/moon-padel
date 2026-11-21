@@ -11,7 +11,9 @@ into public_html. The source folder site/ is never changed.
 
 What it does:
   - copies site/ to dist/site/
-  - adds ?v=<hash> to site.css and site.js so browsers pick up new versions straight away
+  - pre-renders the event cards from config.js into the pages (no layout jump when the script runs)
+  - inlines site.css into every page (no render-blocking request) and adds ?v=<hash> to site.js
+    so browsers pick up new versions straight away
   - with --domain: canonical + og:url on every page, absolute og:image, sitemap.xml,
     Organization data on the home page, and SportsEvent data for nights whose start,
     venue and fee are confirmed (no [PLACEHOLDERS])
@@ -50,6 +52,15 @@ def short_hash(p):
         return hashlib.sha256(f.read()).hexdigest()[:10]
 
 
+def minify_css(css):
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{}:;,>])\s*", r"\1", css)
+    css = css.replace(";}", "}")
+    # keep spaces that matter inside values like "0 0 90px 16px" (handled above only around punctuation)
+    return css.strip()
+
+
 def load_config():
     js = os.path.join(SRC, "assets", "js", "config.js")
     node = shutil.which("node")
@@ -60,6 +71,29 @@ def load_config():
         return json.loads(subprocess.check_output([node, "-e", code], timeout=20))
     except Exception as e:  # noqa: BLE001
         print("  ! could not read config.js with node:", e)
+        return None
+
+
+def prerender_events():
+    """Run config.js + site.js in Node with a stub DOM and return {limit: html} for the event list."""
+    node = shutil.which("node")
+    if not node:
+        return None
+    code = r"""
+const vm=require('vm'),fs=require('fs');
+const doc={addEventListener(){},querySelectorAll(){return[]},getElementById(){return null}};
+const ctx={window:{},document:doc,location:{origin:'',hash:''},navigator:{},console};
+ctx.window.document=doc; vm.createContext(ctx);
+vm.runInContext(fs.readFileSync(process.argv[1],'utf8').replace('window.MOON','window.MOON'),ctx);
+vm.runInContext(fs.readFileSync(process.argv[2],'utf8'),ctx);
+const R=ctx.window.MoonRender; process.stdout.write(JSON.stringify({'0':R.eventsHTML(0),'2':R.eventsHTML(2)}));
+"""
+    try:
+        out = subprocess.check_output([node, "-e", code, os.path.join(SRC, "assets/js/config.js"),
+                                       os.path.join(SRC, "assets/js/site.js")], timeout=20)
+        return json.loads(out)
+    except Exception as e:  # noqa: BLE001
+        print("  ! could not pre-render events:", e)
         return None
 
 
@@ -97,6 +131,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--domain", help="Live address, e.g. https://moonpadel.example (no trailing slash)")
     ap.add_argument("--launch", action="store_true", help="Open the site to search engines and hide the preview banner")
+    ap.add_argument("--no-inline-css", action="store_true", help="Keep site.css as a separate file instead of inlining it")
     a = ap.parse_args()
     domain = (a.domain or "").rstrip("/")
     if a.launch and not domain:
@@ -109,12 +144,23 @@ def main():
     css_v = short_hash(os.path.join(SRC, "assets/css/site.css"))
     js_v = short_hash(os.path.join(SRC, "assets/js/site.js"))
     cfg = load_config()
+    css = minify_css(read(os.path.join(SRC, "assets/css/site.css")))
+    pre = prerender_events()
 
     for f in list(PAGES) + ["404.html"]:
         p = os.path.join(OUT, f)
         s = read(p)
-        s = s.replace('href="/assets/css/site.css"', 'href="/assets/css/site.css?v=%s"' % css_v)
+        if a.no_inline_css:
+            s = s.replace('href="/assets/css/site.css"', 'href="/assets/css/site.css?v=%s"' % css_v)
+        else:
+            # Inline the stylesheet: removes the only render-blocking request (about 6 KB gzipped).
+            s = s.replace('<link rel="stylesheet" href="/assets/css/site.css">', "<style>%s</style>" % css)
         s = s.replace('src="/assets/js/site.js"', 'src="/assets/js/site.js?v=%s"' % js_v)
+        if pre:
+            s = s.replace('<div class="events" id="event-list" data-limit="2"></div>',
+                          '<div class="events" id="event-list" data-limit="2">%s</div>' % pre["2"])
+            s = s.replace('<div class="events" id="event-list"></div>',
+                          '<div class="events" id="event-list">%s</div>' % pre["0"])
         if domain and f in PAGES:
             url = domain + PAGES[f]
             head = '<link rel="canonical" href="%s">\n<meta property="og:url" content="%s">\n' % (url, url)
