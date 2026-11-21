@@ -1,23 +1,36 @@
-import Image from "next/image";
+import { preload } from "react-dom";
 import { cn } from "@/lib/utils";
 
 export type Phase = "full" | "gibbous" | "half" | "crescent";
 
+const MARK_WIDTHS = [96, 192, 256, 448, 640, 832];
+const markSrcSet = (ext: "avif" | "webp") => MARK_WIDTHS.map((w) => `/brand/mark/moon-mark-${w}.${ext} ${w}w`).join(", ");
+const markWidth = (size: number) => MARK_WIDTHS.find((w) => w >= size * 2) ?? 832;
+
 /** The founders' moon mark. Phases are CSS masks over the real artwork. */
 export function MoonMark({ size = 40, phase = "full", glow = false, className, priority, sizes }: { size?: number; phase?: Phase; glow?: boolean; className?: string; priority?: boolean; sizes?: string }) {
+  // The hero mark is the largest thing on the home page: start fetching it from the <head>.
+  if (priority) preload(`/brand/mark/moon-mark-${markWidth(size)}.avif`, { as: "image", type: "image/avif", imageSrcSet: markSrcSet("avif"), imageSizes: sizes ?? `${size}px`, fetchPriority: "high" });
   return (
     <span className={cn("relative inline-block shrink-0", className)} style={{ width: size, height: size }}>
       {glow && <span className="absolute inset-[10%] rounded-full bg-space shadow-glow" aria-hidden />}
-      <Image
-        src="/brand/moon-mark.webp"
-        alt=""
-        width={size}
-        height={size}
-        priority={priority}
-        fetchPriority={priority ? "high" : undefined}
-        className={cn("relative h-full w-full select-none", phase !== "full" && `phase-${phase}`)}
-        sizes={sizes ?? `${size}px`}
-      />
+      {/* Pre-sized AVIF (about a third of the WebP size) with a WebP fallback,
+          served as static files from the CDN instead of the image function. */}
+      <picture className="contents">
+        <source type="image/avif" srcSet={markSrcSet("avif")} sizes={sizes ?? `${size}px`} />
+        <img
+          src={`/brand/mark/moon-mark-${markWidth(size)}.webp`}
+          srcSet={markSrcSet("webp")}
+          sizes={sizes ?? `${size}px`}
+          alt=""
+          width={size}
+          height={size}
+          decoding="async"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : undefined}
+          className={cn("relative h-full w-full select-none", phase !== "full" && `phase-${phase}`)}
+        />
+      </picture>
     </span>
   );
 }
