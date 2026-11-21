@@ -1,0 +1,4 @@
+# Pre-launch: keep crawlers out until the [placeholders] are replaced.
+# tools/build_site.py --launch rewrites this file with your domain and sitemap.
+User-agent: *
+Disallow: /

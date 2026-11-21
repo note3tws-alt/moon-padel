@@ -1,5 +1,7 @@
 {
   "name": "Moon Padel",
+  "description": "Competitive padel nights in Dubai.",
+  "lang": "en",
   "short_name": "MoonPadel",
   "icons": [
     { "src": "/assets/img/mark-192.png", "sizes": "192x192", "type": "image/png" },

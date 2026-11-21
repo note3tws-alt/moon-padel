@@ -18,6 +18,21 @@ window.MOON = {
   // Contact email for partners and corporate. Leave empty to hide.
   email: "",
 
+  // The live league app (leaderboard, player profiles, log in / My profile).
+  // Every "Leaderboard", "Player profiles" and "Log in" link on this site points here.
+  // Change it once if the app moves to its own address (for example a league. subdomain).
+  // Leave empty to hide those links.
+  leagueUrl: "https://moonpadel-league.netlify.app",
+
+  // Shown next to every start time so visitors from abroad are not confused.
+  timezoneLabel: "Dubai time",
+
+  /*
+    Numbers strip on the home page. Hidden while empty. Only add real, current numbers.
+    Example: { value: "120", label: "Players" }, { value: "6", label: "Nights played" }
+  */
+  stats: [],
+
   // Shows a thin bar at the top saying the site is a preview. Set to false at launch.
   showDraftBanner: true,
 
@@ -33,6 +48,11 @@ window.MOON = {
              "full"  sold out (button: join the free waitlist)
              "done"  finished (button: see results)
     levels:  any of "Crescent", "Half moon", "Gibbous", "Full moon"
+    start:   optional, Dubai local time as "YYYY-MM-DDTHH:MM" (e.g. "2027-01-09T20:00").
+             When set, the card gets an "Add to calendar" button and search engines get event data.
+    durationMinutes: optional number, e.g. 120
+    pairing: "solo" (sign up alone, partners rotate), "pairs" (sign up as a pair), "either", or a [PLACEHOLDER]
+    taken / capacity: when both are real numbers the card shows "12 / 20 spots taken" with a bar
   */
   events: [
     {
@@ -45,6 +65,9 @@ window.MOON = {
       area: "Dubai",
       levels: ["Crescent", "Half moon", "Gibbous", "Full moon"],
       format: "[FORMAT]",
+      pairing: "[PAIRING]",
+      start: "",
+      durationMinutes: null,
       fee: "AED [FEE]",
       capacity: "[CAPACITY]",
       taken: null,
@@ -61,6 +84,9 @@ window.MOON = {
       area: "Dubai",
       levels: ["[LEVELS]"],
       format: "[FORMAT]",
+      pairing: "[PAIRING]",
+      start: "",
+      durationMinutes: null,
       fee: "AED [FEE]",
       capacity: "[CAPACITY]",
       taken: null,
@@ -90,6 +116,8 @@ window.MOON = {
   */
   ofTheMonth: null,
 
-  // Venues once agreed. Example: { name: "Venue name", area: "Dubai area", mapUrl: "https://maps.google.com/?q=..." }
+  // Venues once agreed. Example:
+  // { name: "Venue name", area: "Dubai area", mapUrl: "https://maps.google.com/?q=...", photo: "/assets/img/venues/venue.webp" }
+  // Photos: 1280 x 720 WebP, under 150 KB.
   venues: []
 };

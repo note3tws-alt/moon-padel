@@ -1,3 +1,8 @@
-# Netlify Git deploys: publish the static site in /site. No build step.
+# Netlify Git deploys of the static Moon Padel site.
+# The build packages site/ with tools/build_site.py (inlined CSS, pre-rendered events,
+# cache-busted JS, placeholder report) and publishes the result.
+# Add --domain https://YOUR-DOMAIN --launch to the command when the site goes live.
+# The league app in platform/ is a separate Netlify site with its own netlify.toml.
 [build]
-  publish = "site"
+  command = "python3 tools/build_site.py"
+  publish = "dist/site"
