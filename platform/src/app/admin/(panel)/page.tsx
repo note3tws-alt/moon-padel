@@ -2,20 +2,34 @@ import Link from "next/link";
 import { PageHeader } from "@/components/admin/page-header";
 import { StatTile, StatusChip } from "@/components/ui";
 import { sql } from "@/lib/db";
-import { getLeagueStats, getUpcomingTournaments } from "@/lib/queries";
+import { getUpcomingTournaments } from "@/lib/queries";
 import { fmtDate, fmtNumber, fmtTime } from "@/lib/utils";
 
 export default async function AdminDashboard() {
-  const db = sql();
-  const [stats, upcoming, activity, [recent], [lastRun], pending] = await Promise.all([
-    getLeagueStats(),
+  // One round trip for everything except the upcoming list: the dashboard used
+  // to fire six queries at once, which stalled on Supabase's pooler in production.
+  const [[row], upcoming] = await Promise.all([
+    sql()`
+      select
+        (select count(*)::int from players) as players,
+        (select count(*)::int from tournaments where status = 'completed' and results_published) as tournaments,
+        (select count(*)::int from matches m join tournaments t on t.id = m.tournament_id where m.status = 'completed' and m.verified and t.results_published) as matches,
+        (select count(*)::int from divisions where active) as divisions,
+        (select count(*)::int from clubs where active) as clubs,
+        (select count(distinct mp.player_id)::int from match_players mp join matches m on m.id = mp.match_id join tournaments t on t.id = m.tournament_id where t.tournament_date >= current_date - 30) as recent,
+        (select coalesce(json_agg(a), '[]') from (select created_at, actor_email, action, entity, entity_id from admin_audit_logs order by created_at desc limit 12) a) as activity,
+        (select row_to_json(r) from (select finished_at, matches_processed, trigger from recalc_runs order by id desc limit 1) r) as last_run,
+        (select coalesce(json_agg(p), '[]') from (
+           select t.id, t.name, t.tournament_date, (select count(*)::int from matches m where m.tournament_id = t.id) as matches
+           from tournaments t where not t.results_published and t.tournament_date <= current_date and t.status not in ('cancelled', 'draft')
+           order by t.tournament_date desc limit 5) p) as pending`,
     getUpcomingTournaments(6),
-    db`select created_at, actor_email, action, entity, entity_id from admin_audit_logs order by created_at desc limit 12`,
-    db`select count(distinct mp.player_id)::int as n from match_players mp join matches m on m.id = mp.match_id join tournaments t on t.id = m.tournament_id where t.tournament_date >= current_date - 30`,
-    db`select finished_at, matches_processed, trigger from recalc_runs order by id desc limit 1`,
-    db`select t.id, t.name, t.tournament_date, (select count(*)::int from matches m where m.tournament_id = t.id) as matches
-       from tournaments t where not t.results_published and t.tournament_date <= current_date and t.status not in ('cancelled', 'draft') order by t.tournament_date desc limit 5`,
   ]);
+  const stats = row as { players: number; tournaments: number; matches: number; divisions: number; clubs: number };
+  const recent = { n: row.recent as number };
+  const activity = row.activity as { created_at: string; actor_email: string | null; action: string; entity: string; entity_id: string | null }[];
+  const lastRun = row.last_run as { finished_at: string; matches_processed: number; trigger: string } | null;
+  const pending = row.pending as { id: number; name: string; tournament_date: string; matches: number }[];
   return (
     <>
       <PageHeader title="Dashboard" description="Everything at a glance. Upload a spreadsheet or publish results and the public site updates straight away."
