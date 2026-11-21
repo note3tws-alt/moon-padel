@@ -1,0 +1,4 @@
+Montserrat is licensed under the SIL Open Font License, Version 1.1.
+Copyright 2011 The Montserrat Project Authors (https://github.com/JulietaUla/Montserrat)
+Full licence text: https://openfontlicense.org/open-font-license-official-text/
+These woff2 files are the Latin and Latin Extended subsets served by Google Fonts, self-hosted so the site makes no third-party font requests.

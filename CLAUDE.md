@@ -18,7 +18,9 @@ Padel tournament and events brand. Work here covers brand identity, the Instagra
 | `design/Story-*.dc.html` | Story templates: reveal countdown, founding players list |
 | `design/Profile-Preview.dc.html` | Mock of the Instagram profile on Day 7 |
 | `brand/` | Logo kit: moon mark, lockups, icons, social profile and highlight images, usage rules (`brand/README.md`) |
-| `site/` | Netlify-ready static website (see `WEBSITE.md`). Edit `site/assets/js/config.js` for events, results, WhatsApp number |
+| `research/rocket-padel-site-audit-2026-11-21.md` | Rocket Padel website audit (pages, flows, SEO, speed, mobile) and the Moon Padel site gaps it found |
+| `site/` | Static website for Hostinger (`.htaccess`) or Netlify (see `WEBSITE.md`). Edit `site/assets/js/config.js` for events, results, WhatsApp number, league app link |
+| `tools/build_site.py` | Packages `site/` for upload: canonical links, sitemap, robots.txt, launch switch, placeholder report. Output in `dist/` (not committed) |
 | `platform/` | MoonPadel league app (Next.js + Supabase): leaderboards, player profiles, tournaments, scoring engine, admin panel with Excel/CSV import. Separate Netlify site with Base directory `platform`. See `platform/README.md` |
 | `exports/posters/` | PNG exports of every design board, using the real moon mark (Dubai copy, court photos still to come) |
 

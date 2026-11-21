@@ -1,7 +1,7 @@
 (function () {
   "use strict";
   var C = window.MOON || {};
-  var MARK = "/assets/img/moon-mark.webp";
+  var MARK = "/assets/img/moon-mark-256.webp";
   var LEVEL_PHASE = { "Crescent": "crescent", "Half moon": "half", "Gibbous": "gibbous", "Full moon": "full" };
 
   function esc(s) {
@@ -34,6 +34,33 @@
       a.target = "_blank";
       a.rel = "noopener";
     });
+  }
+
+  /* Links into the league app: <a data-league="/leaderboard"> */
+  function wireLeague() {
+    var base = String(C.leagueUrl || "").replace(/\/+$/, "");
+    document.querySelectorAll("[data-league]").forEach(function (a) {
+      if (!base) { a.hidden = true; return; }
+      a.href = base + a.getAttribute("data-league");
+    });
+    document.querySelectorAll("[data-league-section]").forEach(function (el) { el.hidden = !base; });
+  }
+
+  /* Numbers strip: only real numbers from config */
+  function renderStats() {
+    var el = document.getElementById("stats");
+    if (!el) return;
+    var list = (C.stats || []).filter(function (x) { return x && x.value != null && x.value !== "" && !isPlaceholder(x.value); });
+    if (!list.length) { el.hidden = true; return; }
+    el.innerHTML = list.map(function (x) { return "<div><b>" + esc(x.value) + "</b><span>" + esc(x.label) + "</span></div>"; }).join("");
+    el.hidden = false;
+  }
+
+  function toast(msg) {
+    var t = document.createElement("div");
+    t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function () { t.remove(); }, 2200);
   }
 
   /* Config values shown inline */
@@ -84,34 +111,114 @@
     done: { label: "Played", btn: "See results" }
   };
 
+  var PAIRING = {
+    solo: "Sign up on your own, partners rotate",
+    pairs: "Sign up as a pair",
+    either: "On your own or as a pair"
+  };
+  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  // "2027-01-09T20:00" in Dubai time (UTC+4, no daylight saving) -> Date, or null.
+  function parseStart(v) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/.exec(String(v || ""));
+    if (!m) return null;
+    return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4] - 4, +m[5]));
+  }
+  function dubaiParts(d) {
+    var x = new Date(d.getTime() + 4 * 3600 * 1000);
+    return { y: x.getUTCFullYear(), mo: x.getUTCMonth(), d: x.getUTCDate(), wd: x.getUTCDay(), h: x.getUTCHours(), mi: x.getUTCMinutes() };
+  }
+  function fmtTime(p) {
+    var h = p.h % 12 || 12;
+    return h + (p.mi ? ":" + String(p.mi).padStart(2, "0") : "") + (p.h < 12 ? " AM" : " PM");
+  }
+  function icsDate(d) { return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
+  function icsEscape(s) { return String(s || "").replace(/([,;\\])/g, "\\$1").replace(/\n/g, "\\n"); }
+
+  function downloadIcs(ev) {
+    var start = parseStart(ev.start);
+    if (!start) return;
+    var mins = parseInt(ev.durationMinutes, 10) || 120;
+    var end = new Date(start.getTime() + mins * 60000);
+    var url = location.origin + "/events#" + ev.id;
+    var ics = [
+      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Moon Padel//Events//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+      "BEGIN:VEVENT",
+      "UID:" + ev.id + "@moonpadel",
+      "DTSTAMP:" + icsDate(new Date()),
+      "DTSTART:" + icsDate(start),
+      "DTEND:" + icsDate(end),
+      "SUMMARY:" + icsEscape("Moon Padel: " + ev.title),
+      "LOCATION:" + icsEscape([ev.venue, ev.area].filter(Boolean).join(", ")),
+      "DESCRIPTION:" + icsEscape("Details and rules: " + url),
+      "URL:" + url,
+      "END:VEVENT", "END:VCALENDAR"
+    ].join("\r\n");
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+    a.download = ev.id + ".ics";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  function shareEvent(ev) {
+    var url = location.origin + "/events#" + ev.id;
+    var title = "Moon Padel: " + ev.title;
+    if (navigator.share) { navigator.share({ title: title, url: url }).catch(function () {}); return; }
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { toast("Link copied"); }, function () { prompt("Copy this link", url); });
+    else prompt("Copy this link", url);
+  }
+
   function eventCard(ev) {
     var st = STATUS[ev.status] || STATUS.soon;
     var flagship = ev.type === "flagship";
-    var spots = "";
-    if (ev.taken != null && !isPlaceholder(ev.capacity)) spots = esc(ev.taken) + " / " + esc(ev.capacity) + " spots taken";
-    else spots = txt(ev.capacity) + " spots";
+    var start = parseStart(ev.start);
+    var p = start ? dubaiParts(start) : null;
+    var dateText = p ? DAYS[p.wd] + " " + p.d + " " + MONTHS[p.mo] + " " + p.y : ev.date;
+    var timeText = p ? fmtTime(p) : ev.time;
+    var tz = C.timezoneLabel && !isPlaceholder(timeText) ? ' <span class="tz">(' + esc(C.timezoneLabel) + ")</span>" : "";
+
+    var spots = "", bar = "";
+    var cap = parseInt(ev.capacity, 10), taken = parseInt(ev.taken, 10);
+    if (!isNaN(cap) && !isNaN(taken) && !isPlaceholder(ev.capacity)) {
+      spots = taken + " / " + cap + " spots taken";
+      bar = '<div class="spots-bar" aria-hidden="true"><i style="width:' + Math.min(100, Math.round(taken / cap * 100)) + '%"></i></div>';
+    } else spots = txt(ev.capacity) + " spots";
+
     var href, attrs = ' target="_blank" rel="noopener"';
-    var name = ev.title + (isPlaceholder(ev.date) ? "" : " " + ev.date);
+    var name = ev.title + (isPlaceholder(dateText) ? "" : " " + dateText);
     if (ev.status === "done") { href = "/results"; attrs = ""; }
     else if (ev.status === "open" && ev.payUrl) href = esc(ev.payUrl);
     else if (ev.status === "open") href = waLink((C.whatsappKeyword || "MOON") + " " + name);
     else if (ev.status === "full") href = waLink("WAITLIST " + name);
     else href = waLink(C.whatsappKeyword || "MOON");
 
-    return '<article class="event' + (flagship ? " flagship" : "") + '" data-type="' + esc(ev.type) + '" data-levels="' + esc((ev.levels || []).join("|")) + '">' +
-      '<div class="date"><span class="d">' + txt(ev.date) + "</span>" + phase(flagship ? "full" : "half") + "</div>" +
+    var pairing = ev.pairing ? (PAIRING[ev.pairing] ? esc(PAIRING[ev.pairing]) : txt(ev.pairing)) : "";
+    var duration = parseInt(ev.durationMinutes, 10);
+
+    var actions = [];
+    if (start && ev.status !== "done") actions.push('<button type="button" class="linkbtn" data-act="ics" data-id="' + esc(ev.id) + '">Add to calendar</button>');
+    if ((ev.pairing === "pairs" || ev.pairing === "either") && ev.status !== "done")
+      actions.push('<a class="linkbtn" target="_blank" rel="noopener" href="' + waLink("PARTNER " + name) + '">Need a partner?</a>');
+    actions.push('<button type="button" class="linkbtn" data-act="share" data-id="' + esc(ev.id) + '">Share</button>');
+
+    return '<article class="event' + (flagship ? " flagship" : "") + '" id="' + esc(ev.id) + '" data-type="' + esc(ev.type) + '" data-levels="' + esc((ev.levels || []).join("|")) + '">' +
+      '<div class="date"><span class="d">' + (p ? esc(DAYS[p.wd] + " " + p.d + " " + MONTHS[p.mo]) : txt(ev.date)) + "</span>" + phase(flagship ? "full" : "half") + "</div>" +
       "<div>" +
       '<span class="tag">' + (flagship ? "Full Moon Series" : "Moon Night") + "</span>" +
       "<h3>" + txt(ev.title) + "</h3>" +
       '<div class="meta">' +
-      "<span><b>When</b> " + txt(ev.date) + ", " + txt(ev.time) + "</span>" +
+      "<span><b>When</b> " + txt(dateText) + ", " + txt(timeText) + tz + (isNaN(duration) ? "" : " &middot; " + duration + " min") + "</span>" +
       "<span><b>Where</b> " + txt(ev.venue) + ", " + txt(ev.area) + "</span>" +
       "<span><b>Levels</b> " + (ev.levels || []).map(txt).join(", ") + "</span>" +
       "<span><b>Format</b> " + txt(ev.format) + "</span>" +
-      "<span><b>Entry</b> " + txt(ev.fee) + " per player &middot; " + spots + "</span>" +
+      (pairing ? "<span><b>Entry</b> " + pairing + "</span>" : "") +
+      "<span><b>Fee</b> " + txt(ev.fee) + " per player &middot; " + spots + bar + "</span>" +
       "</div>" +
       '<div class="foot"><span class="status ' + esc(ev.status || "soon") + '">' + st.label + "</span>" +
       '<a class="btn btn-sm ' + (ev.status === "done" ? "btn-ghost" : "btn-primary") + '" href="' + href + '"' + attrs + ">" + st.btn + "</a></div>" +
+      '<div class="actions">' + actions.join("") + "</div>" +
       "</div></article>";
   }
 
@@ -126,6 +233,18 @@
       return;
     }
     list.innerHTML = evs.map(eventCard).join("");
+    list.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-act]");
+      if (!b) return;
+      var ev = evs.filter(function (x) { return x.id === b.getAttribute("data-id"); })[0];
+      if (!ev) return;
+      if (b.getAttribute("data-act") === "ics") downloadIcs(ev); else shareEvent(ev);
+    });
+    // Deep link: /events#full-moon-night-01 scrolls to the card once it exists.
+    if (location.hash.length > 1) {
+      var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (target) target.scrollIntoView();
+    }
 
     var filters = document.getElementById("event-filters");
     if (!filters) return;
@@ -201,8 +320,10 @@
       return;
     }
     v.innerHTML = list.map(function (x) {
-      return '<div class="card venue"><div><h3>' + txt(x.name) + "</h3><p>" + txt(x.area || "Dubai") + "</p></div>" +
-        (x.mapUrl ? '<a class="btn btn-sm btn-ghost" href="' + esc(x.mapUrl) + '" target="_blank" rel="noopener">Map</a>' : "") + "</div>";
+      var row = "<div><h3>" + txt(x.name) + "</h3><p>" + txt(x.area || "Dubai") + "</p></div>" +
+        (x.mapUrl ? '<a class="btn btn-sm btn-ghost" href="' + esc(x.mapUrl) + '" target="_blank" rel="noopener">Directions</a>' : "");
+      if (!x.photo) return '<div class="card venue">' + row + "</div>";
+      return '<div class="card venue has-photo"><img class="venue-photo" src="' + esc(x.photo) + '" alt="' + esc(x.name) + '" loading="lazy" decoding="async" width="1280" height="720"><div class="row">' + row + "</div></div>";
     }).join("");
   }
 
@@ -227,7 +348,9 @@
     renderEvents();
     renderResults();
     renderVenues();
+    renderStats();
     fillConfig();
+    wireLeague();
     wireWhatsApp();
     menu();
     reveal();
