@@ -1,6 +1,6 @@
 # Moon Padel website
 
-Static site for Moon Padel UAE (Dubai), in `site/`. No framework, no build step needed to preview it. Mobile first. Runs on Hostinger (Apache, `.htaccess`) or Netlify (`netlify.toml`).
+Static site for Moon Padel UAE (Dubai), in `site/`. No framework, no build step needed to preview it. Mobile first. Runs on Hostinger (Apache, `.htaccess`) or Netlify (`netlify.toml`, `_headers`).
 
 The league app (leaderboard, player profiles, log in) is a separate Next.js site in `platform/`. This site links to it through one setting, `leagueUrl` in `config.js`.
 
@@ -30,7 +30,7 @@ Each event can also take `start` (Dubai time, `"2027-01-09T20:00"`), `durationMi
 1. Set `whatsappNumber` in `config.js` (until then, buttons open WhatsApp with "MOON" typed and no number).
 2. Replace every `[PLACEHOLDER]` once the founders confirm it. `python3 tools/build_site.py` lists what is left, file by file.
 3. Get the terms and privacy pages reviewed.
-4. Build the launch package: `python3 tools/build_site.py --domain https://YOUR-DOMAIN --launch`. This turns off the preview banner, removes the noindex header, and adds canonical links, sitemap.xml and robots.txt.
+4. Build the launch package: `python3 tools/build_site.py --domain https://YOUR-DOMAIN --launch`. This turns off the preview banner, removes the noindex header (`.htaccess` and `_headers`), and adds canonical links, sitemap.xml and robots.txt.
 
 ## Deploy to Hostinger
 
@@ -46,12 +46,13 @@ Each event can also take `start` (Dubai time, `"2027-01-09T20:00"`), `durationMi
    and do not also turn on a www redirect in hPanel, or the two will loop.
 6. After launch: add the site in Google Search Console and submit `https://YOUR-DOMAIN/sitemap.xml`.
 
-`.htaccess` does what `netlify.toml` does on Netlify: HTTPS, one address, clean URLs, the 404 page, security headers, caching (fonts a year, images 30 days, CSS and JS a week with a version tag, pages and `config.js` always fresh) and compression.
+`.htaccess` does what `_headers` and `_redirects` do on Netlify: HTTPS, one address, clean URLs, the 404 page, security headers, caching (fonts a year, images 30 days, CSS and JS a week with a version tag, pages and `config.js` always fresh) and compression.
 
 ## Deploy to Netlify
 
-- **Drag and drop:** build as above and drop the `dist/site` folder on app.netlify.com/drop. `netlify.toml` inside it sets headers.
-- **From Git:** connect this repo. The root `netlify.toml` publishes `site/`. No build command.
+- **From Git (used for the live preview):** the root `netlify.toml` runs `python3 tools/build_site.py` and publishes `dist/site`. Every push to `main` redeploys. When the domain is ready, change the command to `python3 tools/build_site.py --domain https://YOUR-DOMAIN --launch`.
+- **Drag and drop:** build as above and drop the `dist/site` folder on app.netlify.com/drop.
+- Headers live in `site/_headers` and redirects in `site/_redirects` (Netlify reads both in either mode).
 
 ## Speed
 

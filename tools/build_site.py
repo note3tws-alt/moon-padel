@@ -17,7 +17,7 @@ What it does:
   - with --domain: canonical + og:url on every page, absolute og:image, sitemap.xml,
     Organization data on the home page, and SportsEvent data for nights whose start,
     venue and fee are confirmed (no [PLACEHOLDERS])
-  - with --launch: removes the noindex header (.htaccess and netlify.toml), turns off the
+  - with --launch: removes the noindex header (.htaccess and _headers), turns off the
     preview banner, and writes a robots.txt that allows crawling and points to the sitemap
   - lists every [PLACEHOLDER] still on the site so nothing unconfirmed goes live by accident
 Needs Python 3.8+. Uses Node (if installed) to read config.js for event data; skips that step otherwise.
@@ -194,8 +194,8 @@ def main():
     if a.launch:
         ht = os.path.join(OUT, ".htaccess")
         write(ht, re.sub(r"\n  # PRE-LAUNCH START.*?# PRE-LAUNCH END\n", "\n", read(ht), flags=re.S))
-        nt = os.path.join(OUT, "netlify.toml")
-        write(nt, re.sub(r"\n\s*# Keeps search engines away.*?X-Robots-Tag = \"noindex\"\n", "\n", read(nt), flags=re.S))
+        hd = os.path.join(OUT, "_headers")
+        write(hd, read(hd).replace("  X-Robots-Tag: noindex, nofollow\n", ""))
         cf = os.path.join(OUT, "assets/js/config.js")
         write(cf, read(cf).replace("showDraftBanner: true", "showDraftBanner: false"))
         write(os.path.join(OUT, "robots.txt"), "User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % domain)
