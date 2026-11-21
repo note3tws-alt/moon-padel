@@ -31,7 +31,7 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="container-page grid items-center gap-10 py-16 sm:py-24 lg:grid-cols-[1.2fr_1fr]">
-          <Reveal>
+          <div>
             <p className="label">{general.city} padel league</p>
             <h1 className="h-display mt-5 text-5xl sm:text-7xl lg:text-8xl">
               {general.heroTitle.split(" ").map((w, i, arr) => (
@@ -44,13 +44,13 @@ export default async function HomePage() {
               <Link href="/tournaments" className="btn-ghost">Explore tournaments</Link>
             </div>
             <p className="mt-10 text-xs font-medium uppercase tracking-brand text-ice/70">{general.tagline.replace(/\.$/, "")}</p>
-          </Reveal>
-          <Reveal delay={0.15} className="relative mx-auto">
+          </div>
+          <div className="relative mx-auto">
             <div className="relative h-64 w-64 sm:h-80 sm:w-80 lg:h-[26rem] lg:w-[26rem]">
               <div className="absolute inset-0 rounded-full bg-electric/10 blur-3xl" aria-hidden />
-              <MoonMark size={416} glow priority className="!h-full !w-full" />
+              <MoonMark size={416} glow priority sizes="(min-width: 1024px) 416px, (min-width: 640px) 320px, 256px" className="!h-full !w-full" />
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 

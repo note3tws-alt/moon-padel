@@ -4,7 +4,9 @@ const nextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ["exceljs"],
   images: { remotePatterns: [{ protocol: "https", hostname: "**" }] },
-  experimental: { serverActions: { bodySizeLimit: "10mb" } },
+  // inlineCss puts the (small, ~8 KB gzip) stylesheet into the HTML so the
+  // first paint does not wait on a separate render-blocking CSS request.
+  experimental: { serverActions: { bodySizeLimit: "10mb" }, inlineCss: true },
   async headers() {
     // Public league pages are the same for every visitor (the header's account
     // button loads per person from /api/me in the browser), so Netlify's CDN

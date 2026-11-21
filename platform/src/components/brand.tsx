@@ -4,18 +4,19 @@ import { cn } from "@/lib/utils";
 export type Phase = "full" | "gibbous" | "half" | "crescent";
 
 /** The founders' moon mark. Phases are CSS masks over the real artwork. */
-export function MoonMark({ size = 40, phase = "full", glow = false, className, priority }: { size?: number; phase?: Phase; glow?: boolean; className?: string; priority?: boolean }) {
+export function MoonMark({ size = 40, phase = "full", glow = false, className, priority, sizes }: { size?: number; phase?: Phase; glow?: boolean; className?: string; priority?: boolean; sizes?: string }) {
   return (
     <span className={cn("relative inline-block shrink-0", className)} style={{ width: size, height: size }}>
       {glow && <span className="absolute inset-[10%] rounded-full bg-space shadow-glow" aria-hidden />}
       <Image
-        src="/brand/moon-mark.png"
+        src="/brand/moon-mark.webp"
         alt=""
         width={size}
         height={size}
         priority={priority}
+        fetchPriority={priority ? "high" : undefined}
         className={cn("relative h-full w-full select-none", phase !== "full" && `phase-${phase}`)}
-        sizes={`${size}px`}
+        sizes={sizes ?? `${size}px`}
       />
     </span>
   );
