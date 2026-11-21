@@ -91,7 +91,7 @@ This is what keeps Rocket players coming back. Moon Padel's league app already h
 | Event details | Duration, pair type, spots bar, roster, club photo | Date, time, venue, levels, format, fee | Optional start time (with "Dubai time"), duration, pairing (solo, pairs, either), spots bar when both numbers are real, Add to calendar (.ics), Share link to each night, "Need a partner?" on pair nights |
 | Venue cards | Photo and directions | Name and map only | Optional photo (lazy loaded), "Directions" button |
 | Numbers strip | Players, tournaments, divisions, clubs | None | Strip on home that stays hidden until real numbers are added to config |
-| Speed | Optimised images | Google Fonts (5 weights, 2 extra connections), 85 KB logo PNG, 158 KB mark used for every small moon phase | Montserrat self-hosted (one 38 KB file), logo 12 KB WebP, 37 KB mark for phases, smaller icons, cache-busted CSS and JS |
+| Speed | Optimised images | Google Fonts (5 weights, 2 extra connections), 85 KB logo PNG, 158 KB mark used for every small moon phase | AVIF images with WebP fallback and srcset (hero 28 KB on phones, preloaded), Montserrat self-hosted and split (20 KB core), CSS inlined at build, events pre-rendered, cache-busted JS. Lighthouse mobile on the built site: home 100 (LCP 1.4 s), events 99, other pages 98 to 100 |
 | Medium screens | n/a | Header wrapped between 980 and 1100 px | Full nav from 1100 px, menu and sticky WhatsApp bar below |
 | Launch safety | n/a | Placeholders had to be found by hand | The build script lists every [PLACEHOLDER] left, per file |
 
