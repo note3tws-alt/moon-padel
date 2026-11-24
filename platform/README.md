@@ -43,6 +43,37 @@ All rules are stored in the database and edited in Admin > Scoring settings. You
 
 The ruleset shipped with the app is called **"Demo ruleset (not official)"**. Replace its numbers with the official MoonPadel rules before launch.
 
+## Ladder Americano nights (event operations)
+
+Built from the Developer Workflow & Scope Brief (Nov 2026). One database drives four screens:
+
+| Screen | URL | Who |
+| --- | --- | --- |
+| Admin control centre | `/admin/events` | Organiser: roster, check-in monitor, court draw and swaps, round clock, score queue and overrides, tie decisions, podium, finalise, exports |
+| Venue tablet (kiosk) | `/kiosk/<token>` | Players: tap name to check in (optional 4-digit code), see court and partner, enter the score, other team confirms or disputes |
+| TV display | `/tv/<token>` | Everyone: check-in, courts, live leaderboard, round results, podium. Auto-rotates by stage, or the admin picks a screen. Landscape or portrait |
+| Public live page | `/live/<slug>` and `/nights` | Phones and the website |
+
+Tablet and TV links are long random tokens per event (Admin > Events > Screens), so no login is needed on the devices; reset them there if a link leaks. Public screens never receive phone numbers, codes or notes.
+
+- **Engine** (`src/lib/ladder/engine.ts`, pure and unit tested): level-aware round 1 draw, adjacent-court ladder (court 1 = W1+W2, court k = L(k-1)+W(k+1), last court = L(N-1)+LN), partner remix that never keeps an arriving pair together and prefers fewest repeat partners then opponents, games-won scoring, standings (total, wins, game difference, organiser order) and podium.
+- **Service** (`src/lib/ladder/service.ts`): every write locks the event row in one transaction and checks a per-match revision, so a score commits once even with double taps, retries or two devices. A round locks by itself when all courts are confirmed and decided, and the next round is drawn at once.
+- **Ties**: per event, either the organiser picks the pair that moves up, or golden point is entered on the tablet. Final ties: total games, wins, game difference, then organiser order.
+- **Lifetime points and medals**: finalising writes each player's total to `player_points_ledger` and unlocks every newly reached milestone in `medal_tiers` once. Reopening or correcting recomputes it; medals already handed over are kept and logged. Thresholds are editable in Admin > Medals.
+- **League sync**: a finalised night with "count in league" on is written as a tournament with matches, so the leaderboard and player profiles include it.
+- **Live updates**: screens poll `/api/live/...` with the version they hold (a 204 when nothing changed). With `SUPABASE_SERVICE_ROLE_KEY` and the public Supabase keys set, the server also sends a Supabase Realtime broadcast on every change, so screens update instantly and poll only every 15 seconds. If the Wi-Fi drops, screens show "Reconnecting" and catch up by themselves.
+- **Roles**: `admin` (owner) can change levels, medal settings, correct locked rounds and reopen finalised nights. `editor` (event staff) can run nights: roster, check-in, rounds and scores.
+- **Exports**: event report page with XLSX (totals, rounds, audit log) and CSVs; medals CSV in Admin > Medals.
+- **Installable**: `manifest.webmanifest` lets the tablet, TV and phones add MoonPadel to the home screen.
+
+Run the end-to-end acceptance tests (T01 to T12) against a disposable database:
+
+```bash
+TEST_DATABASE_URL=postgres://moon:moon@localhost:5432/moonpadel_test npx vitest run src/lib/ladder
+```
+
+Migration to apply on Supabase: `supabase/migrations/20261124000001_event_ops.sql`. Demo data (Admin > Website settings) now includes three demo Ladder nights.
+
 ## Bulk import
 
 Admin > Upload data accepts .xlsx and .csv for players, tournaments, match results and historical monthly stats. Download a template from the same page.
