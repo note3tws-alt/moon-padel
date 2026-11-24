@@ -24,6 +24,13 @@ window.MOON = {
   // Leave empty to hide those links.
   leagueUrl: "https://moonpadel-league.netlify.app",
 
+  // Pull upcoming nights, podiums and lifetime points live from the league app
+  // (the same database the admin, venue tablet and TV use). When the app has
+  // public nights, they replace the "events" list below. Set false to use only this file.
+  liveData: true,
+  // Shown on live event cards until fees are confirmed.
+  defaultFee: "AED [FEE]",
+
   // Shown next to every start time so visitors from abroad are not confused.
   timezoneLabel: "Dubai time",
 
@@ -77,18 +84,18 @@ window.MOON = {
     {
       id: "moon-night-01",
       type: "night",
-      title: "Moon Night",
+      title: "Ladder Americano night",
       date: "[DATE]",
       time: "[TIME]",
       venue: "[VENUE]",
       area: "Dubai",
       levels: ["[LEVELS]"],
-      format: "[FORMAT]",
-      pairing: "[PAIRING]",
+      format: "Ladder Americano: 4 courts, 6 rounds, partners rotate",
+      pairing: "solo",
       start: "",
       durationMinutes: null,
       fee: "AED [FEE]",
-      capacity: "[CAPACITY]",
+      capacity: "16",
       taken: null,
       payUrl: "",
       status: "soon"

@@ -5,7 +5,7 @@ import { COUNTRIES } from "@/lib/countries";
 import type { Division } from "@/lib/queries";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function PlayerForm({ player, divisions, storage }: { player?: any; divisions: Division[]; storage: boolean }) {
+export function PlayerForm({ player, divisions, storage, tiers = [] }: { player?: any; divisions: Division[]; storage: boolean; tiers?: { id: number; code: string }[] }) {
   const p = player ?? {};
   return (
     <ActionForm action={savePlayer} className="space-y-6">
@@ -35,8 +35,14 @@ export function PlayerForm({ player, divisions, storage }: { player?: any; divis
         </div>
       </section>
       <section className="card p-5">
-        <h2 className="mb-4 font-bold">Division</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <h2 className="mb-4 font-bold">Level and division</h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Field label="Skill level (events)" hint="Approved by staff. Decides the starting court at Ladder nights.">
+            <select name="skill_tier_id" defaultValue={p.skill_tier_id ?? ""} className="select">
+              <option value="">Not assessed</option>
+              {tiers.map((t) => <option key={t.id} value={t.id}>{t.code}</option>)}
+            </select>
+          </Field>
           <Field label="Current division">
             <select name="division_id" defaultValue={p.division_id ?? ""} className="select">
               <option value="">Unassigned</option>
@@ -49,7 +55,8 @@ export function PlayerForm({ player, divisions, storage }: { player?: any; divis
       <section className="card p-5">
         <h2 className="mb-1 font-bold">Private contact details</h2>
         <p className="mb-4 text-xs text-muted">Never shown on the public site.</p>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-4">
+          <Field label="Check-in code" hint="Optional 4 digits for the venue tablet."><input name="checkin_pin" inputMode="numeric" pattern="[0-9]{4}" maxLength={4} defaultValue={p.checkin_pin ?? ""} className="input" /></Field>
           <Field label="Email"><input name="email" type="email" defaultValue={p.email ?? ""} className="input" /></Field>
           <Field label="Phone"><input name="phone" defaultValue={p.phone ?? ""} className="input" /></Field>
           <Field label="Notes"><input name="notes" defaultValue={p.notes ?? ""} className="input" /></Field>

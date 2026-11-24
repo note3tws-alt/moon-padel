@@ -277,10 +277,12 @@ export async function loadDemo(): Promise<ActionState> {
   try {
     const admin = await assertAdmin();
     const r = await seedDemoData();
+    const { seedLadderDemo } = await import("@/lib/ladder/demo");
+    await seedLadderDemo(admin);
     const { sql } = await import("@/lib/db");
     await sql().begin((tx) => audit(tx, admin, "demo.load", "demo", null, undefined, r));
     await refreshPublicSite();
-    return { ok: true, message: `Demo data loaded: ${r.players} players, ${r.tournaments} tournaments` };
+    return { ok: true, message: `Demo data loaded: ${r.players} players, ${r.tournaments} tournaments, 3 Ladder nights` };
   } catch (e) { return toError(e); }
 }
 

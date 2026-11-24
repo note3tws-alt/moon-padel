@@ -5,6 +5,7 @@ import { DivisionBadge } from "@/components/brand";
 import { Avatar, EmptyState, Flag, ResultPill, StatTile } from "@/components/ui";
 import { MonthlyBarChart, RatingChart, WinLossDonut } from "@/components/charts-lazy";
 import { getPlayerProfile } from "@/lib/queries";
+import { playerLadderSummary } from "@/lib/ladder/public";
 import { countryName } from "@/lib/countries";
 import { fmtDate, fmtMonth, fmtNumber, fmtRating, setsToString, winPct } from "@/lib/utils";
 
@@ -21,6 +22,7 @@ export default async function PlayerPage({ params }: { params: Promise<Params> }
   const { slug } = await params;
   const data = await getPlayerProfile(decodeURIComponent(slug));
   if (!data) notFound();
+  const ladder = await playerLadderSummary(data.player.id);
   const { player: p, ratingHistory, monthly, matches, tournaments, divisionHistory, pairs, partners, divisionChampionships, bestRank } = data;
 
   const ratingSeries = ratingHistory.map((r) => ({ label: fmtDate(r.rated_at, { day: "numeric", month: "short" }), rating: Number(r.rating_after) }));
@@ -75,6 +77,32 @@ export default async function PlayerPage({ params }: { params: Promise<Params> }
         <StatTile label="Win %" value={winPct(p.wins, p.matches)} />
         <StatTile label="Tournaments" value={p.tournaments} hint={p.podiums ? `${p.podiums} podium${p.podiums > 1 ? "s" : ""}` : undefined} />
       </section>
+
+      {/* Ladder nights: lifetime points and milestone medals */}
+      {(ladder.points > 0 || ladder.nights.length > 0) && (
+        <section className="card mt-6 p-5">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="label">Ladder nights{ladder.level ? ` · Level ${ladder.level}` : ""}</p>
+              <p className="mt-2 text-4xl font-extrabold tabular-nums"><span className="text-gradient-padel">{ladder.points}</span> <span className="text-base font-bold text-muted">lifetime points</span></p>
+              {ladder.next && <p className="mt-1 text-xs text-muted">{ladder.next.threshold - ladder.points} to {ladder.next.name}</p>}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {ladder.medals.map((m) => <span key={m.name} className="chip border-gold/40 text-gold">{m.name}</span>)}
+            </div>
+          </div>
+          {ladder.nights.length > 0 && (
+            <ul className="mt-4 divide-y divide-line text-sm">
+              {ladder.nights.map((n) => (
+                <li key={n.slug} className="flex items-center justify-between gap-3 py-2">
+                  <Link href={`/live/${n.slug}`} className="truncate hover:text-white"><span className="text-muted">{fmtDate(n.event_date)}</span> · {n.title}</Link>
+                  <span className="shrink-0 tabular-nums">{n.medal ? <span className="mr-2 capitalize text-gold">{n.medal}</span> : <span className="mr-2 text-muted">#{n.rank}</span>}<b>{n.total}</b></span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
 
       {/* Charts */}
       <section className="mt-6 grid gap-4 lg:grid-cols-3">

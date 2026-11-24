@@ -7,6 +7,9 @@ import { cn } from "@/lib/utils";
 
 const NAV = [
   { href: "/admin", label: "Dashboard" },
+  { href: "/admin/events", label: "Events (live nights)" },
+  { href: "/admin/medals", label: "Medals & lifetime points" },
+  { href: "/admin/levels", label: "Skill levels" },
   { href: "/admin/players", label: "Players" },
   { href: "/admin/accounts", label: "Player accounts" },
   { href: "/admin/upload", label: "Upload data" },

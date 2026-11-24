@@ -112,7 +112,8 @@
     soon: { label: "Registration opens soon", btn: "Get first access" },
     open: { label: "Registration open", btn: "Register" },
     full: { label: "Full, waitlist open", btn: "Join the waitlist" },
-    done: { label: "Played", btn: "See results" }
+    done: { label: "Played", btn: "See results" },
+    live: { label: "Live now", btn: "Follow live" }
   };
 
   var PAIRING = {
@@ -192,7 +193,8 @@
 
     var href, attrs = ' target="_blank" rel="noopener"';
     var name = ev.title + (isPlaceholder(dateText) ? "" : " " + dateText);
-    if (ev.status === "done") { href = "/results"; attrs = ""; }
+    if (ev.status === "live" && ev.liveUrl) href = esc(ev.liveUrl);
+    else if (ev.status === "done") { href = "/results"; attrs = ""; }
     else if (ev.status === "open" && ev.payUrl) href = esc(ev.payUrl);
     else if (ev.status === "open") href = waLink((C.whatsappKeyword || "MOON") + " " + name);
     else if (ev.status === "full") href = waLink("WAITLIST " + name);
@@ -203,6 +205,7 @@
 
     var actions = [];
     if (start && ev.status !== "done") actions.push('<button type="button" class="linkbtn" data-act="ics" data-id="' + esc(ev.id) + '">Add to calendar</button>');
+    if (ev.note) actions.unshift('<span class="muted small">' + txt(ev.note) + "</span>");
     if ((ev.pairing === "pairs" || ev.pairing === "either") && ev.status !== "done")
       actions.push('<a class="linkbtn" target="_blank" rel="noopener" href="' + waLink("PARTNER " + name) + '">Need a partner?</a>');
     actions.push('<button type="button" class="linkbtn" data-act="share" data-id="' + esc(ev.id) + '">Share</button>');
@@ -210,7 +213,7 @@
     return '<article class="event' + (flagship ? " flagship" : "") + '" id="' + esc(ev.id) + '" data-type="' + esc(ev.type) + '" data-levels="' + esc((ev.levels || []).join("|")) + '">' +
       '<div class="date"><span class="d">' + (p ? esc(DAYS[p.wd] + " " + p.d + " " + MONTHS[p.mo]) : txt(ev.date)) + "</span>" + phase(flagship ? "full" : "half") + "</div>" +
       "<div>" +
-      '<span class="tag">' + (flagship ? "Full Moon Series" : "Moon Night") + "</span>" +
+      '<span class="tag">' + (flagship ? "Full Moon Series" : ev.tag || "Moon Night") + "</span>" +
       "<h3>" + txt(ev.title) + "</h3>" +
       '<div class="meta">' +
       "<span><b>When</b> " + txt(dateText) + ", " + txt(timeText) + tz + (isNaN(duration) ? "" : " &middot; " + duration + " min") + "</span>" +
@@ -358,6 +361,98 @@
     els.forEach(function (e) { io.observe(e); });
   }
 
+
+  /* ------------------------------------------------------------------
+     Live data from the league app (one shared database with the admin,
+     venue tablet and TV). The page is complete without it: cards from
+     config.js are pre-rendered at build time, the last feed is kept in
+     the browser for an instant repeat visit, and a slow or offline app
+     never delays the page.
+  ------------------------------------------------------------------ */
+  var LIVE_STATES = { checkin_open: 1, ready: 1, round_live: 1, score_collection: 1, round_locked: 1 };
+  var FEED_KEY = "mp-feed-v1";
+
+  function feedEvents(feed, base) {
+    return (feed.upcoming || []).map(function (e) {
+      var start = e.start_time ? e.event_date + "T" + String(e.start_time).slice(0, 5) : "";
+      var live = LIVE_STATES[e.state];
+      return {
+        id: e.slug, type: "night", tag: "Ladder Americano", title: e.title,
+        date: e.event_date, time: e.start_time ? "" : "[TIME]", start: start, durationMinutes: e.duration_minutes,
+        venue: e.venue || "[VENUE]", area: e.area || "Dubai",
+        levels: e.levels && e.levels.length ? e.levels : ["[LEVELS]"],
+        format: e.court_count + " courts, " + e.round_count + " rounds of " + e.round_minutes + " min, partners rotate",
+        pairing: "solo", fee: C.defaultFee || "AED [FEE]",
+        capacity: String(e.player_cap), taken: e.confirmed, note: e.public_note || "",
+        status: live ? "live" : e.confirmed >= e.player_cap ? "full" : "open",
+        liveUrl: base + "/live/" + encodeURIComponent(e.slug)
+      };
+    });
+  }
+
+  function fade(el) { if (el) { el.classList.remove("live-in"); void el.offsetWidth; el.classList.add("live-in"); } }
+
+  function applyFeed(feed) {
+    var base = String(C.leagueUrl || "").replace(/\/+$/, "");
+    if (!feed || !base) return;
+    var evs = feedEvents(feed, base);
+    if (evs.length) {
+      C.events = evs;
+      var list = document.getElementById("event-list");
+      if (list) {
+        var html = eventsHTML(parseInt(list.getAttribute("data-limit") || "0", 10));
+        if (list.innerHTML !== html) { list.innerHTML = html; fade(list); }
+      }
+    }
+    var ms = (feed.milestones || []).map(function (m) { return m.threshold; });
+    if (ms.length) {
+      document.querySelectorAll("[data-milestones]").forEach(function (el) { el.textContent = ms.join(", ") + " points"; });
+      document.querySelectorAll("[data-milestones-line]").forEach(function (el) { el.hidden = false; });
+    }
+    var life = feed.lifetime || [];
+    var ll = document.getElementById("lifetime-list");
+    if (ll && life.length) {
+      ll.innerHTML = life.slice(0, 8).map(function (p, i) {
+        return '<li><a href="' + base + "/players/" + encodeURIComponent(p.slug) + '"><span class="n">' + (i + 1) + "</span>" + esc(p.name) + "</a><span><b>" + esc(p.points) + "</b>" +
+          (p.medals ? '<span class="medals">' + p.medals + " medal" + (p.medals > 1 ? "s" : "") + "</span>" : "") + "</span></li>";
+      }).join("");
+      fade(ll);
+    }
+    if (life.length) {
+      C.standings = { players: life.map(function (p) { return { name: p.name, level: p.level || "", nights: p.events != null ? p.events : "", points: p.points }; }), pairs: [] };
+      var holder = document.getElementById("standings");
+      if (holder) { holder.innerHTML = table(C.standings.players, false); fade(holder); }
+    }
+    var ch = document.getElementById("champions");
+    if (ch && (feed.recent || []).length) {
+      ch.innerHTML = feed.recent.map(function (e) {
+        var pod = (e.podium || []).map(function (p) { return '<span class="' + (p.medal === "gold" ? "medal" : "") + '">' + esc(p.medal) + ": " + esc(p.name) + " (" + esc(p.total) + ")</span>"; }).join("<br>");
+        return '<a class="card champ" style="text-decoration:none;color:inherit" href="' + base + "/live/" + encodeURIComponent(e.slug) + '"><span class="badge">1ST</span><div><h3>' + esc(e.title) + "</h3><p>" + esc(e.event_date) + (e.venue ? " &middot; " + esc(e.venue) : "") + "</p><p>" + pod + "</p></div></a>";
+      }).join("");
+      fade(ch);
+    }
+  }
+
+  function loadFeed() {
+    var base = String(C.leagueUrl || "").replace(/\/+$/, "");
+    if (!base || C.liveData === false || !window.fetch) return;
+    try {
+      var cached = JSON.parse(localStorage.getItem(FEED_KEY) || "null");
+      if (cached && Date.now() - cached.t < 864e5) applyFeed(cached.feed);
+    } catch (e) { /* storage blocked: fine */ }
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 5000);
+    fetch(base + "/api/public/events", { signal: ctrl ? ctrl.signal : undefined, credentials: "omit" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (feed) {
+        clearTimeout(timer);
+        if (!feed) return;
+        applyFeed(feed);
+        try { localStorage.setItem(FEED_KEY, JSON.stringify({ t: Date.now(), feed: feed })); } catch (e) { /* ignore */ }
+      })
+      .catch(function () { clearTimeout(timer); });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     renderPhases();
     renderEvents();
@@ -369,5 +464,6 @@
     wireWhatsApp();
     menu();
     reveal();
+    loadFeed();
   });
 })();

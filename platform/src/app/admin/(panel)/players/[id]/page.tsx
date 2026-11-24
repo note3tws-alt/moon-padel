@@ -15,17 +15,44 @@ export default async function EditPlayer({ params }: { params: Promise<{ id: str
   const { id } = await params;
   if (!/^[0-9a-f-]{36}$/.test(id)) notFound();
   const db = sql();
-  const [player] = await db`select p.*, pp.email, pp.phone, pp.notes, s.rating, s.matches, s.overall_rank from players p left join player_private pp on pp.player_id = p.id left join player_stats s on s.player_id = p.id where p.id = ${id}`;
+  const [player] = await db`select p.*, pp.email, pp.phone, pp.notes, pp.checkin_pin, s.rating, s.matches, s.overall_rank from players p left join player_private pp on pp.player_id = p.id left join player_stats s on s.player_id = p.id where p.id = ${id}`;
   if (!player) notFound();
-  const [divisions, adjustments] = await Promise.all([
+  const [divisions, adjustments, tiers, ladder, medals, ledger] = await Promise.all([
     getDivisions(),
     db`select a.*, u.email as by_email from rating_adjustments a left join users u on u.id = a.created_by where a.player_id = ${id} order by a.effective_at desc`,
+    db`select id, code from skill_tiers where active order by numeric_order`,
+    db`select e.id, e.title, e.event_date, coalesce(c.name, e.venue_name) as venue, r.rank, r.total, r.round_scores, r.medal
+       from ladder_results r join ladder_events e on e.id = r.event_id left join clubs c on c.id = e.club_id where r.player_id = ${id} order by e.event_date desc`,
+    db`select m.unlocked_at, m.issued_at, t.name, t.threshold from player_medals m join medal_tiers t on t.id = m.medal_tier_id where m.player_id = ${id} order by t.threshold`,
+    db`select kind, points, reason, created_by, created_at from player_points_ledger where player_id = ${id} order by created_at desc`,
   ]);
+  const lifetime = ledger.reduce((a, l) => a + Number(l.points), 0);
   return (
     <>
       <PageHeader title={player.full_name} description={<>Player ID {player.player_code} · RTG {fmtRating(player.rating)} · {player.matches ?? 0} matches{player.overall_rank ? ` · rank #${player.overall_rank}` : ""}</>}
         actions={<Link href={`/players/${player.slug}`} target="_blank" className="btn-ghost btn-sm">Public profile ↗</Link>} />
-      <PlayerForm player={player} divisions={divisions} storage={supabaseStorageConfigured()} />
+      <PlayerForm player={player} divisions={divisions} storage={supabaseStorageConfigured()} tiers={tiers as never} />
+
+      <section className="card mt-6 p-5">
+        <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="font-bold">Ladder nights and medals</h2>
+          <p className="text-sm">Lifetime points <b className="text-xl tabular-nums">{lifetime}</b></p>
+        </div>
+        <div className="mb-4 flex flex-wrap gap-2">
+          {medals.length ? medals.map((m) => <span key={m.name} className={`chip ${m.issued_at ? "text-ice" : "border-gold/40 text-gold"}`}>{m.name} · {m.issued_at ? "handed over" : "to hand over"}</span>) : <span className="text-xs text-muted">No milestone medals yet.</span>}
+        </div>
+        {ladder.length > 0 && (
+          <table className="table-base text-sm">
+            <thead><tr><th>Date</th><th>Event</th><th>Rounds</th><th className="text-right">Total</th><th className="text-right">Place</th></tr></thead>
+            <tbody>{ladder.map((l) => (
+              <tr key={l.id}><td className="text-muted">{fmtDate(l.event_date)}</td><td><Link href={`/admin/events/${l.id}`} className="font-semibold hover:text-white">{l.title}</Link><span className="text-xs text-muted"> · {l.venue ?? ""}</span></td>
+                <td className="tabular-nums text-muted">{(l.round_scores as number[]).join(" · ")}</td><td className="text-right font-bold tabular-nums">{l.total}</td>
+                <td className="text-right">{l.medal ? <span className="capitalize text-gold">{l.medal}</span> : `#${l.rank}`}</td></tr>
+            ))}</tbody>
+          </table>
+        )}
+        {ledger.some((l) => l.kind === "adjustment") && <p className="mt-3 text-xs text-muted">Includes manual adjustments: {ledger.filter((l) => l.kind === "adjustment").map((l) => `${l.points > 0 ? "+" : ""}${l.points} (${l.reason})`).join(", ")}</p>}
+      </section>
 
       <section className="card mt-6 p-5">
         <h2 className="mb-1 font-bold">Rating adjustments</h2>

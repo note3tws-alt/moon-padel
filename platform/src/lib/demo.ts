@@ -37,6 +37,8 @@ export async function hasDemoData(): Promise<boolean> {
 
 export async function removeDemoData(tx?: Tx) {
   const run = async (t: Tx) => {
+    // Demo Ladder nights first: their participants and results point at demo players.
+    await t`delete from ladder_events where is_demo`;
     const tours = await t`delete from tournaments where is_demo returning id`;
     const pairs = await t`delete from pairs where is_demo returning id`;
     // Matches in non-demo tournaments that used demo players block deletion (match_players is ON DELETE RESTRICT).
