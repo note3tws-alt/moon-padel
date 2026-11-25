@@ -16,10 +16,20 @@ const nextConfig = {
     const cdn = [
       { key: "Netlify-CDN-Cache-Control", value: "public, durable, s-maxage=60, stale-while-revalidate=86400" },
       { key: "Netlify-Cache-Tag", value: "league-pages" },
+      // Same policy for Vercel's CDN (each host ignores the other's header).
+      { key: "Vercel-CDN-Cache-Control", value: "s-maxage=60, stale-while-revalidate=86400" },
     ];
     // Kiosk, TV and live pages and their APIs are never cached: they must show the current event state.
     const live = [{ key: "Cache-Control", value: "private, no-store, max-age=0" }];
+    // Security headers, set here so they apply on any host (netlify.toml sets them on Netlify too).
+    const base = [
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+    ];
     return [
+      { source: "/:path*", headers: base },
+      { source: "/admin/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex" }, { key: "X-Frame-Options", value: "DENY" }] },
+      { source: "/brand/mark/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
       ...["/", "/leaderboard", "/players/:path*", "/pairs/:path*", "/tournaments/:path*", "/rules", "/privacy", "/nights", "/api/public/:path*"].map(
         (source) => ({ source, headers: cdn }),
       ),

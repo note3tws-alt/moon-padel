@@ -10,8 +10,8 @@ export const CDN_TAG = "league-pages";
 export async function refreshPublicSite() {
   revalidateTag(LEAGUE_TAG);
   revalidatePath("/", "layout");
-  // Best effort: only works when running on Netlify. Without it pages refresh within a minute anyway.
-  if (process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_SITE_URL?.includes("localhost")) {
+  // Best effort, Netlify only (skipped on Vercel). Without it pages refresh within a minute anyway.
+  if (!process.env.VERCEL && process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_SITE_URL?.includes("localhost")) {
     try {
       const { purgeCache } = await import("@netlify/functions");
       await purgeCache({ tags: [CDN_TAG] });
