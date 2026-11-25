@@ -456,3 +456,29 @@ th.pts { text-align: right; }
   background: var(--mp-silver); color: var(--mp-space); font-weight: 700; font-size: 13px; padding: 10px 16px; border-radius: 999px;
 }
 @media (min-width: 1100px) { .toast { bottom: 32px; } }
+
+/* Ladder Americano format (home) */
+.ladder-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 18px; }
+@media (min-width: 700px) { .ladder-stats { grid-template-columns: repeat(4, 1fr); } }
+.ladder-stats div { border: 1px solid var(--mp-line); border-radius: var(--radius); background: var(--mp-night); padding: 18px 20px; }
+.ladder-stats b { display: block; font-size: 44px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; background: linear-gradient(180deg, #C4E8FF 0%, #2E8BEA 95%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ladder-stats span { display: block; margin-top: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mp-ice); }
+.ladder { display: grid; gap: 8px; }
+.rung { display: grid; grid-template-columns: 110px 1fr; align-items: center; border: 1px solid var(--mp-line); border-radius: 14px; background: rgba(10, 20, 40, 0.7); overflow: hidden; }
+.rung .court { align-self: stretch; display: flex; align-items: center; justify-content: center; background: rgba(29, 63, 166, 0.45); font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; font-size: 13px; color: #fff; padding: 14px 8px; }
+.rung .who { padding: 14px 18px; color: var(--mp-silver); font-size: 15px; }
+.rung:first-child .court { background: var(--mp-electric); }
+.tag-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.tag-row span { min-width: 64px; text-align: center; border: 1px solid var(--mp-line); border-radius: 999px; padding: 10px 16px; font-weight: 800; font-size: 18px; color: var(--mp-ice); background: var(--mp-night); }
+.lifetime { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.lifetime li { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; }
+.lifetime li b { font-variant-numeric: tabular-nums; }
+.lifetime .n { color: var(--mp-muted); margin-right: 10px; display: inline-block; min-width: 1.4em; }
+.lifetime .medals { color: var(--mp-gold); font-size: 12px; margin-left: 8px; }
+.status.live { color: #fff; }
+.status.live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--mp-electric); margin-right: 6px; animation: mp-pulse 1.6s ease-in-out infinite; }
+@keyframes mp-pulse { 50% { opacity: 0.35; } }
+/* Live data swaps in with a soft fade, never a jump. */
+.live-in { animation: mp-fade 0.45s ease-out both; }
+@keyframes mp-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .live-in, .status.live::before { animation: none; } }

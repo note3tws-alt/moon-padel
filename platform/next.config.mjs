@@ -17,9 +17,14 @@ const nextConfig = {
       { key: "Netlify-CDN-Cache-Control", value: "public, durable, s-maxage=60, stale-while-revalidate=86400" },
       { key: "Netlify-Cache-Tag", value: "league-pages" },
     ];
-    return ["/", "/leaderboard", "/players/:path*", "/pairs/:path*", "/tournaments/:path*", "/rules", "/privacy"].map(
-      (source) => ({ source, headers: cdn }),
-    );
+    // Kiosk, TV and live pages and their APIs are never cached: they must show the current event state.
+    const live = [{ key: "Cache-Control", value: "private, no-store, max-age=0" }];
+    return [
+      ...["/", "/leaderboard", "/players/:path*", "/pairs/:path*", "/tournaments/:path*", "/rules", "/privacy", "/nights", "/api/public/:path*"].map(
+        (source) => ({ source, headers: cdn }),
+      ),
+      ...["/kiosk/:path*", "/tv/:path*", "/live/:path*", "/api/live/:path*", "/api/kiosk/:path*"].map((source) => ({ source, headers: live })),
+    ];
   },
 };
 export default nextConfig;

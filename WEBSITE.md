@@ -66,3 +66,13 @@ Each event can also take `start` (Dubai time, `"2027-01-09T20:00"`), `durationMi
 ## Brand
 
 Logo, mark and colours come from `brand/` (see `brand/README.md`). Moon phases are made by masking the real moon mark with CSS, never redrawn. Montserrat, self-hosted. Medal gold is used only for winners. No court or player photos yet.
+
+## Live data from the app (Nov 2026)
+
+With `liveData: true` in `site/assets/js/config.js`, the site loads `<leagueUrl>/api/public/events` after the page has painted and swaps in, with a short fade:
+
+- upcoming Ladder nights marked "Publish" in Admin > Events (they replace the `events` list; live nights get a "Follow live" button),
+- latest podiums on the results page,
+- lifetime points on the home and results pages, and the milestone thresholds in the rules.
+
+The page never waits for it: cards from `config.js` are pre-rendered at build time, the last response is kept in the browser for repeat visits, and a slow or offline app is ignored after 5 seconds. Lighthouse mobile on the built site after this change: home 100, events 100, results 100 (CLS 0).

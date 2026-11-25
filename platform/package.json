@@ -12,7 +12,7 @@
     "test": "vitest run",
     "db:migrate": "tsx scripts/migrate.ts",
     "db:local-auth-shim": "tsx scripts/migrate.ts --local-shim",
-    "db:seed-demo": "tsx scripts/seed-demo.ts",
+    "db:seed-demo": "tsx --conditions=react-server scripts/seed-demo.ts",
     "db:remove-demo": "tsx scripts/remove-demo.ts",
     "db:recalculate": "tsx scripts/recalculate.ts",
     "admin:create": "tsx scripts/create-admin.ts"

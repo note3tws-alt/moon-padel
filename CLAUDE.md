@@ -1,6 +1,6 @@
 # Moon Padel
 
-Padel tournament and events brand. Work here covers brand identity, the Instagram launch, tournament marketing and business planning. Moon Padel is an independent tournament brand, not a club or court operator.
+Padel tournament and events brand. Work here covers brand identity, the Instagram launch, tournament marketing and business planning. Moon Padel is an independent tournament brand, not a club or court operator. Its core product (per the Developer Workflow brief, Nov 2026) is recurring MoonPadel Ladder Americano nights at booked clubs: 16 players, 4 courts, 6 timed rounds, rotating partners, winners up and losers down, games-won scoring, daily podium and lifetime milestone medals.
 
 ## What is in this folder
 
@@ -21,7 +21,7 @@ Padel tournament and events brand. Work here covers brand identity, the Instagra
 | `research/rocket-padel-site-audit-2026-11-21.md` | Rocket Padel website audit (pages, flows, SEO, speed, mobile) and the Moon Padel site gaps it found |
 | `site/` | Static website for Hostinger (`.htaccess`) or Netlify (see `WEBSITE.md`). Edit `site/assets/js/config.js` for events, results, WhatsApp number, league app link |
 | `tools/build_site.py` | Packages `site/` for upload: canonical links, sitemap, robots.txt, launch switch, placeholder report. Output in `dist/` (not committed) |
-| `platform/` | MoonPadel league app (Next.js + Supabase): leaderboards, player profiles, tournaments, scoring engine, admin panel with Excel/CSV import. Separate Netlify site with Base directory `platform`. See `platform/README.md` |
+| `platform/` | MoonPadel app (Next.js + Supabase): Ladder Americano event ops (admin control centre, venue tablet `/kiosk`, TV `/tv`, public `/live` and `/nights`, lifetime medals), leaderboards, player profiles, tournaments, admin panel with Excel/CSV import. Separate Netlify site with Base directory `platform`. See `platform/README.md` |
 | `exports/posters/` | PNG exports of every design board, using the real moon mark (Dubai copy, court photos still to come) |
 
 The `.dc.html` files are the source files of the Claude Design canvas "Moon Padel Brand Board & Launch Posts" (https://claude.ai/artifact/8yeSLsydutgqcExXMFR8Cc). Each one is a single fixed-size board with inline styles. They load `./support.js` from the canvas runtime, which is not included, so they are sources to edit, not standalone pages.

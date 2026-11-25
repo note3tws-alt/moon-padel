@@ -19,6 +19,8 @@ const playerSchema = z.object({
   photo_url: optStr.refine((v) => v == null || /^https?:\/\//.test(v), "Must start with http:// or https://"),
   playing_side: z.enum(["", "left", "right", "both"]).transform((v) => v || null),
   division_id: optNum,
+  skill_tier_id: optNum,
+  checkin_pin: optStr.refine((v) => v == null || /^[0-9]{4}$/.test(v), "Check-in code must be 4 digits"),
   division_reason: optStr,
   status: z.enum(["active", "inactive"]).default("active"),
   email: optStr.refine((v) => v == null || z.string().email().safeParse(v).success, "Invalid email"),
@@ -43,7 +45,7 @@ export async function savePlayer(_prev: ActionState, fd: FormData): Promise<Acti
     const photo = (await uploadPlayerPhoto(fd.get("photo_file") as File | null, code ?? id ?? "player")) ?? v.photo_url;
     const fields = {
       full_name: v.full_name, country_code: country, nationality: v.nationality, photo_url: photo, playing_side: v.playing_side,
-      division_id: v.division_id, status: v.status, base_rating: v.base_rating, base_points: v.base_points, base_tournaments: v.base_tournaments,
+      division_id: v.division_id, skill_tier_id: v.skill_tier_id, status: v.status, base_rating: v.base_rating, base_points: v.base_points, base_tournaments: v.base_tournaments,
       base_matches: v.base_matches, base_wins: v.base_wins, base_losses: v.base_losses, updated_at: new Date(),
     };
     if (id) {
@@ -55,14 +57,14 @@ export async function savePlayer(_prev: ActionState, fd: FormData): Promise<Acti
         await tx`insert into player_division_history (player_id, from_division_id, to_division_id, kind, reason, changed_by)
                  values (${id}, ${before.division_id}, ${v.division_id}, 'manual', ${v.division_reason ?? "Changed by admin"}, ${admin.id})`;
       }
-      await tx`insert into player_private (player_id, email, phone, notes) values (${id}, ${v.email}, ${v.phone}, ${v.notes})
-               on conflict (player_id) do update set email = excluded.email, phone = excluded.phone, notes = excluded.notes, updated_at = now()`;
+      await tx`insert into player_private (player_id, email, phone, notes, checkin_pin) values (${id}, ${v.email}, ${v.phone}, ${v.notes}, ${v.checkin_pin})
+               on conflict (player_id) do update set email = excluded.email, phone = excluded.phone, notes = excluded.notes, checkin_pin = excluded.checkin_pin, updated_at = now()`;
       await audit(tx, admin, "player.update", "player", id, before, after);
       return `Saved ${v.full_name}`;
     }
     const slug = await uniquePlayerSlug(tx, v.full_name);
     const [row] = await tx`insert into players ${tx({ ...fields, slug, player_code: code! })} returning *`;
-    await tx`insert into player_private (player_id, email, phone, notes) values (${row.id}, ${v.email}, ${v.phone}, ${v.notes})`;
+    await tx`insert into player_private (player_id, email, phone, notes, checkin_pin) values (${row.id}, ${v.email}, ${v.phone}, ${v.notes}, ${v.checkin_pin})`;
     if (v.division_id) await tx`insert into player_division_history (player_id, to_division_id, kind, reason, changed_by) values (${row.id}, ${v.division_id}, 'initial', 'Created by admin', ${admin.id})`;
     await audit(tx, admin, "player.create", "player", row.id, undefined, row);
     createdId = row.id;
