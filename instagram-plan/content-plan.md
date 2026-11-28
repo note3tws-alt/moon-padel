@@ -73,23 +73,29 @@ Days are counted back from launch night (**L**). Post feed at 8 to 10 PM Dubai t
 
 | Day | Feed | Stories | Job |
 | --- | --- | --- | --- |
+| L-15 | **R00 Reel "Something big is coming"** (opening post, Higgsfield clip). The first thing on the grid. | Share the Reel to Stories with a "?" question sticker: "What do you think it is?" | Open the account with motion, not a poster. |
 | L-14 | **P01 Teaser "Something is rising"** (crescent). Or as a Reel: Reel 1. | Repost with a "?" question sticker: "What do you think is coming?" | Stop the scroll. Start the mystery. |
+| L-13 | **R01a Reel "The lights are coming on."** (Higgsfield: floodlights switch on over an empty court) | Share to Stories with an emoji slider on the lights | Keep the momentum from R00. |
 | L-12 | **P02 Teaser "Every rally. Every point. Gone."** | Poll: "Do you know how many points you won this year?" Yes / No idea | Plant the pain: nobody records social padel. |
+| L-11 | **R01b Reel "Every point will count."** (Higgsfield: slow-motion ball into the glass, blue ripple) | Share to Stories: "Guess what we're counting" question box | Tease the core idea: points that are saved. |
 | L-10 | **P03 Teaser "16 · 4 · 6 · 1"** | Slider sticker on "How competitive are you?" | Hint at the format without explaining it. |
+| L-9 | **R01c Reel "The moon rises soon."** (Higgsfield: full moon rising over a rooftop court) | Share to Stories with a notify sticker | Tie the name to the moon without saying it. |
 | L-8 | **P04 Teaser "Scores locked"** | "Round 6 is secret. What do you think that means?" question box | Plant the reveal. Answers become content for L-6. |
-| L-7 | none | **P09 Countdown "7 days to moonrise"** | Countdown starts. Add the Instagram countdown sticker set to launch night. |
+| L-7 | **R01d Reel "16 players. One podium."** (Higgsfield: ball bounces send blue shockwaves across the court) | **P09 Countdown "7 days to moonrise"** | Countdown starts. Add the Instagram countdown sticker set to launch night. |
 
 ### Week 2: reveal, explain, convert
 
+Week 2 alternates designed posts and Higgsfield Reels: Reel (L-6), carousel (L-5), Reel (L-4), carousel (L-3), post (L-2), poster (L-1), Reel (L).
+
 | Day | Feed | Stories | Job |
 | --- | --- | --- | --- |
-| L-6 | **P05 Reveal** "Padel nights where every point counts" + Reel 2 (brand film) as Collab with the venue if they agree | Share the reveal. Link sticker to WhatsApp MOON. **P10 Join the mission** | Name the brand. Open the list. |
+| L-6 | **P05 Reveal** "Padel nights where every point counts" + **R06 Reel "Every point counts"** (brand film, Higgsfield, 16 s) as Collab with the venue if they agree | Share the reveal. Link sticker to WhatsApp MOON. **P10 Join the mission** | Name the brand. Open the list. |
 | L-5 | **P06 Carousel "How a Moon Padel night works"** (8 slides) | Reply to the best L-8 guesses about round 6 | Answer "what is it?" in 30 seconds. |
-| L-4 | Reel 3 "What is Americano?" (cover L19) | **P11 "Which league are you?"** quiz | Educate beginners, the biggest audience. |
+| L-4 | **R07 Reel "What is an Americano?"** (Higgsfield explainer, 15 s). Film the founder version later with cover L19. | **P11 "Which league are you?"** quiz | Educate beginners, the biggest audience. |
 | L-3 | **P07 Carousel "From Earth to the Moon"** (10 medals, 4 slides) | **P09 Countdown "3 days"** | Show the long game: why come back. |
 | L-2 | **P08 Find your league** | **P13 Founding 16** with the real confirmed count | Help people self-select D or C. Social proof, only with real numbers. |
 | L-1 | **P12 First night poster** (all details confirmed) | **P09 Countdown "1 day"**, Founding 16 update | The ask. Date, time, venue, fee, 16 spots. |
-| L | Reel 4 "Moonrise" (full moon, launch) on the morning; **P09 "Tonight"** Story | Match-day Story set (section 6) | Launch. |
+| L | **R08 Reel "Tonight."** (14, 7, 3, 1 countdown into a full moon rising beside Burj Khalifa over the Dubai skyline, 12 s) on the morning; **P09 "Tonight"** Story | Match-day Story set (section 6) | Launch. |
 
 **If first-night details are not confirmed by L-1:** post P12 with "Date announced to founding players first" and push WhatsApp MOON. Don't fake it.
 
@@ -150,6 +156,36 @@ The night itself is the best content we have. One person (not playing) runs Stor
 ## 7. Reels (scripted)
 
 Every Reel: vertical 1080 x 1920, sound on, subtitles burned in, first frame works without sound, the logo appears only at the end or on the cover. Captions are short; Reel text carries the story.
+
+### Reel 0. "Something big is coming" (opening post, L-15, produced)
+- **File:** `creatives/motion/mp4/R00-something-big-is-coming.mp4` (8 s, 1080 x 1920). Cover: `creatives/png/R00-reel-cover-something-big.png`.
+- **Footage:** generated in Higgsfield (MAGI-2, 28 Nov 2026): a padel ball in total darkness, lit from behind so it starts as a thin crescent and turns into a full glowing "moon". No logo, no people, no venue.
+- **On-screen text:** kicker "DUBAI, AFTER DARK", then "SOMETHING BIG / IS COMING." rising in word by word ("BIG" in the logo's blue gradient), then a glowing orbit line and "15 NIGHTS TO MOONRISE".
+- **Moon elements:** faint twinkling stars, a glowing orbit line and a slow push in on the last frame. No logo and no brand name (Hola, 28 Nov): the teasers stay anonymous until the reveal.
+- **Sound:** original music made for this Reel (heartbeat build, impact as the headline lands, moonlit bells). Royalty free, since we made it. You can still swap in a trending sound in Instagram.
+- **Caption:** Something big is coming to Dubai. Turn on notifications.
+- **CTA:** Follow.
+
+### Hype Reels R01a to R01d (L-13 to L-7, produced)
+Four 8 s vertical Reels made from Higgsfield clips, the same treatment as R00: animated kicker and headline with one word in the logo blue, a "nights to moonrise" countdown, twinkling stars and a glowing orbit line, and original music for each. No logo, brand name, people or venue. Files are in `creatives/motion/mp4/`, covers in `creatives/png/`.
+
+| File | Footage | Text | Caption |
+| --- | --- | --- | --- |
+| R01a-lights-coming-on | Floodlights switch on one bank at a time over an empty court | "The courts are waking" / "The lights are coming on." / 13 nights | The lights are coming on in Dubai. Soon. |
+| R01b-every-point-counts | Slow-motion ball hits the glass, a blue ripple spreads | "No rally forgotten" / "Every point will count." / 11 nights | Every rally. Every point. This time it counts. |
+| R01c-moon-rises-soon | Full moon rises behind a rooftop court | "Watch the sky" / "The moon rises soon." / 9 nights | Watch the sky. |
+| R01d-sixteen-players | Ball bounces send blue shockwaves across the court | "Six rounds. One night." / "16 players. One podium." / 7 nights | 16 players. 6 rounds. One podium. Coming to Dubai. |
+
+### Week 2 Reels R06 to R08 (produced)
+Same look as the hype Reels: animated captions, stars, original music, no logo. Made from Higgsfield clips (floodlights, aerial courts, ball on glass, glowing bounce, blank gold medal, rooftop moon, full moon over a city). No people, no venue.
+
+| File | Day | Length | Captions | Caption for the post |
+| --- | --- | --- | --- | --- |
+| R06-brand-film-reveal | L-6 | 16 s | "16 players. 4 courts." / "6 rounds. New partners." / "Every point saved." / "Round 6 is secret." / "Then this." (gold medal) / "Every point counts." + WhatsApp MOON | Padel nights in Dubai where every point counts. Live scores, a podium every night, points that stay with you. WhatsApp "MOON" to join the first night. |
+| R07-what-is-americano | L-4 | 15 s | "No partner? No problem." / "New partner every round." / "Win. Move up a court." / "Every point is yours." / "Start in the D League." + WhatsApp MOON | Never played an Americano? It's the easiest way into competitive padel. Send this to the friend who keeps saying they're not ready. |
+| R08-moonrise-tonight | L | 12 s | "14 days." "7." "3." "1." then "Tonight." + "Come and watch. WhatsApp MOON" | Full moon. First night. See you on court. |
+
+The brand name is not shown in any Reel yet; P05 carries the reveal. Add the name to R06's end card only if the founders want the film to do the reveal too.
 
 ### Reel 1. "Something is rising" (pre-launch teaser, L-14)
 - **Concept:** A padel ball under a single floodlight, lit so only a crescent of it shows, slowly turning until it reads as our moon.
@@ -241,6 +277,7 @@ Every Reel: vertical 1080 x 1920, sound on, subtitles burned in, first frame wor
 
 Short, natural, few emojis, one or two hashtags at most (`#padeldubai` and, after launch, `#moonpadel`).
 
+- **R00 Something big is coming (first post):** Something big is coming to Dubai. Turn on notifications.
 - **P01 Something is rising:** Something is rising over Dubai. Turn on notifications.
 - **P02 Points gone:** How many padel points did you win this year? Nobody kept count. Not for much longer.
 - **P03 The numbers:** 16. 4. 6. 1. Guesses in the comments.
@@ -371,6 +408,14 @@ All PNGs are full size and ready to post once the placeholders are filled. Edit 
 
 | File | Length | Use |
 | --- | --- | --- |
+| R00-something-big-is-coming | 8 s | **First post.** Higgsfield clip of the ball rising like a moon, with "Something big is coming." (Reel 0) |
+| R01a-lights-coming-on | 8 s | Higgsfield hype Reel, L-13 |
+| R01b-every-point-counts | 8 s | Higgsfield hype Reel, L-11 |
+| R01c-moon-rises-soon | 8 s | Higgsfield hype Reel, L-9 |
+| R01d-sixteen-players | 8 s | Higgsfield hype Reel, L-7 |
+| R06-brand-film-reveal | 16 s | Brand film for the reveal day, L-6 (Reel 2) |
+| R07-what-is-americano | 15 s | Beginner explainer, L-4 (Reel 3) |
+| R08-moonrise-tonight | 12 s | Launch morning countdown, L (Reel 4) |
 | R01-something-rising | 9 s | Teaser 1 as a Reel: the crescent rises and lights up (Reel 1) |
 | R02-moonrise-countdown | 13 s | 7, 3, 1, Tonight while the moon fills to full (Reel 4) |
 | R03-points-gone | 9 s | Points counter climbs to 347, glitches back to 0000, "Gone." (Teaser 2) |
