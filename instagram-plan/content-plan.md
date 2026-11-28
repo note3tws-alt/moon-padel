@@ -366,3 +366,15 @@ All PNGs are full size and ready to post once the placeholders are filled. Edit 
 | L18, L19, L20 reel covers | 9:16 | Covers for Reels 5, 3 and 4 |
 | _grid-preview.png | | How the profile grid looks after launch week |
 | _contact-sheet.png | | Every creative at a glance |
+
+**Animated Reels** (`creatives/motion/mp4/`, 1080 x 1920, silent so you can add a trending track in Instagram)
+
+| File | Length | Use |
+| --- | --- | --- |
+| R01-something-rising | 9 s | Teaser 1 as a Reel: the crescent rises and lights up (Reel 1) |
+| R02-moonrise-countdown | 13 s | 7, 3, 1, Tonight while the moon fills to full (Reel 4) |
+| R03-points-gone | 9 s | Points counter climbs to 347, glitches back to 0000, "Gone." (Teaser 2) |
+| R04-podium-reveal | 15 s | Scores locked, then bronze, silver, gold rise one by one; fill names and points after each night |
+| R05-medal-journey | 12 s | The 10 medals light up from Earth to the Moon (medal carousel as a Reel) |
+
+Edit the timing or text in `creatives/tools/motion.py` and re-run it (needs ffmpeg).
