@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R02-moonrise-countdown</title>
+<link rel="stylesheet" href="../../assets/theme.css">
+<style>
+@property --cx { syntax: '<length>'; inherits: false; initial-value: 0px; }
+.amoon { position: absolute; }
+.amoon img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.amoon .ghost { opacity: .10; filter: grayscale(1) brightness(.8); }
+.amoon .lit { filter: drop-shadow(0 0 60px rgba(46,139,234,.55)) drop-shadow(0 0 14px rgba(63,184,255,.6));
+  -webkit-mask-image: radial-gradient(circle at var(--cx) 50%, transparent calc(var(--r) - 10px), #000 calc(var(--r) + 6px));
+          mask-image: radial-gradient(circle at var(--cx) 50%, transparent calc(var(--r) - 10px), #000 calc(var(--r) + 6px)); }
+.amoon { -webkit-mask-image: radial-gradient(circle closest-side, #000 80%, transparent 100%); mask-image: radial-gradient(circle closest-side, #000 80%, transparent 100%); }
+.a { animation-fill-mode: both; animation-timing-function: cubic-bezier(.2,.7,.2,1); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes popIn { 0% { opacity: 0; transform: scale(.6); } 70% { opacity: 1; transform: scale(1.06); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes dropIn { 0% { opacity: 0; transform: translateY(-220px) scale(.8); } 70% { opacity: 1; transform: translateY(12px) scale(1.04); } 100% { opacity: 1; transform: none; } }
+@keyframes riseUp { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes pulse { 0%,100% { transform: scale(1); filter: drop-shadow(0 0 16px rgba(63,184,255,.8)); } 50% { transform: scale(1.08); filter: drop-shadow(0 0 40px rgba(63,184,255,1)); } }
+@keyframes flash { 0% { opacity: 0; } 15% { opacity: .9; } 100% { opacity: 0; } }
+
+.m2 .lit { animation: ph 13s linear both; }
+@keyframes ph { 0.00% { --cx: 334px; } 18.46% { --cx: 198px; } 24.62% { --cx: 198px; } 43.08% { --cx: 30px; } 49.23% { --cx: 30px; } 66.15% { --cx: -167px; } 72.31% { --cx: -167px; } 84.62% { --cx: -418px; } 100.00% { --cx: -418px; } }
+.step { position: absolute; left: 0; right: 0; top: 1240px; text-align: center; opacity: 0; }
+@keyframes show { 0% { opacity: 0; transform: scale(.7); } 12% { opacity: 1; transform: scale(1.04); } 18% { transform: scale(1); } 85% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1); } }
+</style></head>
+<body data-duration="13"><div class="frame story bg-a">
+<div class="topbar"><img class="logo" src="../assets/logo-horizontal-transparent.png" style="height:60px" alt="MoonPadel"><div class="meta">Moonrise</div></div>
+<div class="amoon m2" style="width:760px;height:760px;left:160px;top:360px;--r:380px;"><img class="ghost" src="../../assets/moon-mark.png" alt=""><img class="lit" style="--cx:0px" src="../../assets/moon-mark.png" alt=""></div>
+<div class="step a" style="animation:show 3s 0.3s both"><div class="num" style="font-size:300px;line-height:.85;color:#fff;text-shadow:0 0 60px rgba(63,184,255,.8)">7</div><div class="eyebrow" style="font-size:40px;margin-top:20px">days to moonrise</div></div><div class="step a" style="animation:show 3s 3.3s both"><div class="num" style="font-size:300px;line-height:.85;color:#fff;text-shadow:0 0 60px rgba(63,184,255,.8)">3</div><div class="eyebrow" style="font-size:40px;margin-top:20px">days to moonrise</div></div><div class="step a" style="animation:show 3s 6.3s both"><div class="num" style="font-size:300px;line-height:.85;color:#fff;text-shadow:0 0 60px rgba(63,184,255,.8)">1</div><div class="eyebrow" style="font-size:40px;margin-top:20px">day to moonrise</div></div>
+<div style="position:absolute;left:0;right:0;top:1240px;text-align:center">
+  <div class="h1 a" style="font-size:180px;animation:popIn .9s 9.4s both">Tonight</div>
+  <div class="eyebrow a" style="font-size:30px;margin-top:20px;animation:fadeIn .8s 10.4s both"><span class="ph">[DATE]</span> · <span class="ph">[TIME]</span></div>
+  <div class="a" style="margin-top:44px;animation:fadeUp .8s 11s both"><span class="btn"><svg width="46" height="46" viewBox="0 0 32 32"><path fill="#25D366" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3z"/><path fill="#fff" d="M23.2 19.4c-.4-.2-2.3-1.1-2.6-1.2-.4-.1-.6-.2-.9.2-.3.4-1 1.2-1.2 1.4-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.6.1-.3 0-.5 0-.7l-1.2-2.8c-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .5-.4.4-1.4 1.3-1.4 3.2s1.4 3.7 1.6 4c.2.3 2.7 4.2 6.6 5.9 2.5 1 3.4 1.1 4.6.9.7-.1 2.3-.9 2.6-1.9.3-.9.3-1.7.2-1.9-.1-.2-.3-.3-.7-.5z"/></svg> WhatsApp “MOON”</span></div>
+</div></div></body></html>

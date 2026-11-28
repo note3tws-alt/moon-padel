@@ -7,6 +7,7 @@ Padel tournament and events brand. Work here covers brand identity, the Instagra
 | Path | What it is |
 | --- | --- |
 | `research/rocket-padel-competitor-study.md` | Rocket Padel (Dubai) competitor study: model, formats, pricing, community, social, positioning check, copy/adapt/differ recommendations |
+| `instagram-plan/` | Full Instagram content plan (pre-launch Moonrise countdown, post-launch rhythm, match-day Stories, 10 Reel scripts, captions, ads, KPIs) and 46 designed creatives: PNG in `creatives/png/`, editable HTML in `creatives/src/`, rebuild with `creatives/tools/` |
 | `launch-plan.md` | 7-day Instagram launch plan: competitor read (Rocket Padel), positioning, day-by-day posts, Reel shot lists, captions, shoot plan, KPIs, open decisions |
 | `design/canvas.json` | Layout of the design canvas: board positions, titles, sticky notes |
 | `design/Main.dc.html` | Brand identity board (proposed): logo, colour, type, moon-phase system |

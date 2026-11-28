@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R05-medal-journey</title>
+<link rel="stylesheet" href="../../assets/theme.css">
+<style>
+@property --cx { syntax: '<length>'; inherits: false; initial-value: 0px; }
+.amoon { position: absolute; }
+.amoon img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.amoon .ghost { opacity: .10; filter: grayscale(1) brightness(.8); }
+.amoon .lit { filter: drop-shadow(0 0 60px rgba(46,139,234,.55)) drop-shadow(0 0 14px rgba(63,184,255,.6));
+  -webkit-mask-image: radial-gradient(circle at var(--cx) 50%, transparent calc(var(--r) - 10px), #000 calc(var(--r) + 6px));
+          mask-image: radial-gradient(circle at var(--cx) 50%, transparent calc(var(--r) - 10px), #000 calc(var(--r) + 6px)); }
+.amoon { -webkit-mask-image: radial-gradient(circle closest-side, #000 80%, transparent 100%); mask-image: radial-gradient(circle closest-side, #000 80%, transparent 100%); }
+.a { animation-fill-mode: both; animation-timing-function: cubic-bezier(.2,.7,.2,1); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes popIn { 0% { opacity: 0; transform: scale(.6); } 70% { opacity: 1; transform: scale(1.06); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes dropIn { 0% { opacity: 0; transform: translateY(-220px) scale(.8); } 70% { opacity: 1; transform: translateY(12px) scale(1.04); } 100% { opacity: 1; transform: none; } }
+@keyframes riseUp { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes pulse { 0%,100% { transform: scale(1); filter: drop-shadow(0 0 16px rgba(63,184,255,.8)); } 50% { transform: scale(1.08); filter: drop-shadow(0 0 40px rgba(63,184,255,1)); } }
+@keyframes flash { 0% { opacity: 0; } 15% { opacity: .9; } 100% { opacity: 0; } }
+
+.endmoon { animation: fadeIn 1.2s 7s both; }
+</style></head>
+<body data-duration="12"><div class="frame story bg-a">
+<div class="pad" style="justify-content:flex-start;padding-top:0">
+  <div class="eyebrow a" style="animation:fadeIn .6s .2s both">Lifetime rewards</div>
+  <div class="h1" style="margin-top:22px;font-size:120px"><div class="a" style="animation:fadeUp .8s .5s both">From Earth</div><div class="a" style="animation:fadeUp .8s .9s both">to <span class="blue">the Moon</span></div></div>
+  <div class="lead a" style="margin-top:28px;max-width:540px;animation:fadeIn .8s 1.3s both">10 real medals. One lifetime journey.</div>
+</div>
+<div class="endmoon"><div class="amoon " style="width:520px;height:520px;left:654px;top:570px;--r:260px;"><img class="ghost" src="../../assets/moon-mark.png" alt=""><img class="lit" style="--cx:-600px" src="../../assets/moon-mark.png" alt=""></div></div>
+<div style="position:absolute;left:60px;top:1330px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rFir" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fFir" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rFir)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fFir)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M18 66h64"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M32 66a18 18 0 0 1 36 0"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 30v-8M28 40l-6-6M72 40l6-6M20 54h-6M80 54h6"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 1.6s both"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rFir" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fFir" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rFir)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fFir)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M18 66h64"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M32 66a18 18 0 0 1 36 0"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 30v-8M28 40l-6-6M72 40l6-6M20 54h-6M80 54h6"/></g>
+</svg></div></div><div style="position:absolute;left:146px;top:1264px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rLif" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fLif" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rLif)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fLif)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M30 52l20-20 20 20"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M30 72l20-20 20 20"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 22v-4"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 2.2s both"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rLif" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fLif" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rLif)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fLif)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M30 52l20-20 20 20"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M30 72l20-20 20 20"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 22v-4"/></g>
+</svg></div></div><div style="position:absolute;left:232px;top:1198px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rOrb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fOrb" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rOrb)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fOrb)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" r="14"/><ellipse fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" rx="34" ry="11" transform="rotate(-22 50 50)"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 2.8s both"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rOrb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fOrb" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rOrb)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fOrb)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" r="14"/><ellipse fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" rx="34" ry="11" transform="rotate(-22 50 50)"/></g>
+</svg></div></div><div style="position:absolute;left:318px;top:1132px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rSta" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fSta" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rSta)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fSta)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M46 22c3 16 8 21 24 24-16 3-21 8-24 24-3-16-8-21-24-24 16-3 21-8 24-24z"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M74 64c1 6 3 8 9 9-6 1-8 3-9 9-1-6-3-8-9-9 6-1 8-3 9-9z"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 3.4s both"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rSta" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fSta" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rSta)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fSta)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M46 22c3 16 8 21 24 24-16 3-21 8-24 24-3-16-8-21-24-24 16-3 21-8 24-24z"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M74 64c1 6 3 8 9 9-6 1-8 3-9 9-1-6-3-8-9-9 6-1 8-3 9-9z"/></g>
+</svg></div></div><div style="position:absolute;left:404px;top:1066px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rCom" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fCom" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rCom)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fCom)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="64" cy="36" r="12"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M55 45L22 78M48 36L28 56M64 52L44 72"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 4.0s both"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rCom" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fCom" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rCom)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fCom)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="64" cy="36" r="12"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M55 45L22 78M48 36L28 56M64 52L44 72"/></g>
+</svg></div></div><div style="position:absolute;left:490px;top:1000px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rNeb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fNeb" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rNeb)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fNeb)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 50c0-4 6-4 6 0 0 8-12 8-12 0 0-12 18-12 18 0 0 16-24 16-24 0 0-20 30-20 30 0"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 4.6s both"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rNeb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fNeb" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rNeb)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fNeb)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 50c0-4 6-4 6 0 0 8-12 8-12 0 0-12 18-12 18 0 0 16-24 16-24 0 0-20 30-20 30 0"/></g>
+</svg></div></div><div style="position:absolute;left:576px;top:934px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rEcl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fEcl" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rEcl)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fEcl)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" r="24"/><circle cx="50" cy="50" r="17" fill="currentColor" opacity=".25"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 16v-4M50 88v-4M16 50h-4M88 50h-4"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 5.199999999999999s both"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rEcl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fEcl" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rEcl)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fEcl)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" r="24"/><circle cx="50" cy="50" r="17" fill="currentColor" opacity=".25"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 16v-4M50 88v-4M16 50h-4M88 50h-4"/></g>
+</svg></div></div><div style="position:absolute;left:662px;top:868px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rSup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fSup" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rSup)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fSup)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" r="10"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 18v14M50 68v14M18 50h14M68 50h14M28 28l9 9M63 63l9 9M72 28l-9 9M37 63l-9 9"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 5.800000000000001s both"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rSup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fSup" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rSup)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fSup)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" r="10"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 18v14M50 68v14M18 50h14M68 50h14M28 28l9 9M63 63l9 9M72 28l-9 9M37 63l-9 9"/></g>
+</svg></div></div><div style="position:absolute;left:748px;top:802px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rPol" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fPol" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rPol)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fPol)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" r="30" opacity=".6"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 14l7 29 29 7-29 7-7 29-7-29-29-7 29-7z"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 6.4s both"><svg class="medal" width="120" height="150" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rPol" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#7C8CA8"/></linearGradient>
+<radialGradient id="fPol" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rPol)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fPol)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#DDEBFF"><circle fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" cx="50" cy="50" r="30" opacity=".6"/><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M50 14l7 29 29 7-29 7-7 29-7-29-29-7 29-7z"/></g>
+</svg></div></div><div style="position:absolute;left:834px;top:736px;text-align:center"><div style="opacity:.22;position:absolute"><svg class="medal" width="160" height="200" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rMoo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE7A3"/><stop offset="1" stop-color="#C9962E"/></linearGradient>
+<radialGradient id="fMoo" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rMoo)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fMoo)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#F2C14E"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M60 22a30 30 0 1 0 18 46 24 24 0 1 1-18-46z"/></g>
+</svg></div><div class="a" style="animation:popIn .6s 7.0s both"><svg class="medal" width="160" height="200" viewBox="0 0 100 125" style="opacity:1">
+<defs><linearGradient id="rMoo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE7A3"/><stop offset="1" stop-color="#C9962E"/></linearGradient>
+<radialGradient id="fMoo" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1B2C55"/><stop offset="1" stop-color="#070C1C"/></radialGradient></defs>
+<path d="M30 0h16l10 30H40z" fill="#1E6FD9"/><path d="M70 0H54L44 30h16z" fill="#2E9BFF"/>
+<circle cx="50" cy="75" r="44" fill="url(#rMoo)" style="filter:drop-shadow(0 0 8px rgba(63,184,255,.6))"/>
+<circle cx="50" cy="75" r="37" fill="url(#fMoo)"/>
+<g transform="translate(22 47) scale(.56)" style="color:#F2C14E"><path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M60 22a30 30 0 1 0 18 46 24 24 0 1 1-18-46z"/></g>
+</svg></div></div>
+<div style="position:absolute;left:0;right:0;bottom:290px;text-align:center">
+  <div class="lead a" style="animation:fadeIn .8s 8.4s both">First Light unlocks at 50 points.</div>
+  <div class="a" style="margin-top:30px;animation:fadeUp .8s 9s both"><span class="btn"><svg width="46" height="46" viewBox="0 0 32 32"><path fill="#25D366" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3z"/><path fill="#fff" d="M23.2 19.4c-.4-.2-2.3-1.1-2.6-1.2-.4-.1-.6-.2-.9.2-.3.4-1 1.2-1.2 1.4-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.6.1-.3 0-.5 0-.7l-1.2-2.8c-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .5-.4.4-1.4 1.3-1.4 3.2s1.4 3.7 1.6 4c.2.3 2.7 4.2 6.6 5.9 2.5 1 3.4 1.1 4.6.9.7-.1 2.3-.9 2.6-1.9.3-.9.3-1.7.2-1.9-.1-.2-.3-.3-.7-.5z"/></svg> WhatsApp “MOON”</span></div>
+</div></div></body></html>

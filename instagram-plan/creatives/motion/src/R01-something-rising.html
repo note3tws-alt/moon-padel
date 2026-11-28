@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R01-something-rising</title>
+<link rel="stylesheet" href="../../assets/theme.css">
+<style>
+@property --cx { syntax: '<length>'; inherits: false; initial-value: 0px; }
+.amoon { position: absolute; }
+.amoon img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.amoon .ghost { opacity: .10; filter: grayscale(1) brightness(.8); }
+.amoon .lit { filter: drop-shadow(0 0 60px rgba(46,139,234,.55)) drop-shadow(0 0 14px rgba(63,184,255,.6));
+  -webkit-mask-image: radial-gradient(circle at var(--cx) 50%, transparent calc(var(--r) - 10px), #000 calc(var(--r) + 6px));
+          mask-image: radial-gradient(circle at var(--cx) 50%, transparent calc(var(--r) - 10px), #000 calc(var(--r) + 6px)); }
+.amoon { -webkit-mask-image: radial-gradient(circle closest-side, #000 80%, transparent 100%); mask-image: radial-gradient(circle closest-side, #000 80%, transparent 100%); }
+.a { animation-fill-mode: both; animation-timing-function: cubic-bezier(.2,.7,.2,1); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes popIn { 0% { opacity: 0; transform: scale(.6); } 70% { opacity: 1; transform: scale(1.06); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes dropIn { 0% { opacity: 0; transform: translateY(-220px) scale(.8); } 70% { opacity: 1; transform: translateY(12px) scale(1.04); } 100% { opacity: 1; transform: none; } }
+@keyframes riseUp { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes pulse { 0%,100% { transform: scale(1); filter: drop-shadow(0 0 16px rgba(63,184,255,.8)); } 50% { transform: scale(1.08); filter: drop-shadow(0 0 40px rgba(63,184,255,1)); } }
+@keyframes flash { 0% { opacity: 0; } 15% { opacity: .9; } 100% { opacity: 0; } }
+
+.m1 { animation: rise 4.5s cubic-bezier(.2,.7,.2,1) both; }
+.m1 .lit { animation: phase 5s 1s ease-in-out both; }
+@keyframes rise { from { transform: translateY(420px); opacity: 0; } 30% { opacity: 1; } to { transform: none; opacity: 1; } }
+@keyframes phase { from { --cx: 368px; } to { --cx: 192px; } }
+</style></head>
+<body data-duration="9"><div class="frame story bg-a">
+<div class="amoon m1" style="width:800px;height:800px;left:230px;top:250px;--r:400px;"><img class="ghost" src="../../assets/moon-mark.png" alt=""><img class="lit" style="--cx:0px" src="../../assets/moon-mark.png" alt=""></div>
+<div class="pad" style="justify-content:flex-end;padding-bottom:40px">
+  <div class="eyebrow a" style="animation:fadeIn .8s 4.6s both">Dubai · after dark</div>
+  <div class="h1" style="margin-top:28px;font-size:150px"><div class="a" style="animation:fadeUp .9s 5.1s both">Something</div><div class="a" style="animation:fadeUp .9s 5.6s both">is <span class="blue">rising</span></div></div>
+  <div class="lead a" style="margin-top:34px;animation:fadeIn .8s 6.6s both">Over Dubai. On the court. Under the lights.</div>
+  <div class="line a" style="margin-top:50px;animation:fadeIn .8s 7.4s both">Coming soon</div>
+</div></div></body></html>
