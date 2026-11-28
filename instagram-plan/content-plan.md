@@ -75,10 +75,13 @@ Days are counted back from launch night (**L**). Post feed at 8 to 10 PM Dubai t
 | --- | --- | --- | --- |
 | L-15 | **R00 Reel "Something big is coming"** (opening post, Higgsfield clip). The first thing on the grid. | Share the Reel to Stories with a "?" question sticker: "What do you think it is?" | Open the account with motion, not a poster. |
 | L-14 | **P01 Teaser "Something is rising"** (crescent). Or as a Reel: Reel 1. | Repost with a "?" question sticker: "What do you think is coming?" | Stop the scroll. Start the mystery. |
+| L-13 | **R01a Reel "The lights are coming on."** (Higgsfield: floodlights switch on over an empty court) | Share to Stories with an emoji slider on the lights | Keep the momentum from R00. |
 | L-12 | **P02 Teaser "Every rally. Every point. Gone."** | Poll: "Do you know how many points you won this year?" Yes / No idea | Plant the pain: nobody records social padel. |
+| L-11 | **R01b Reel "Every point will count."** (Higgsfield: slow-motion ball into the glass, blue ripple) | Share to Stories: "Guess what we're counting" question box | Tease the core idea: points that are saved. |
 | L-10 | **P03 Teaser "16 · 4 · 6 · 1"** | Slider sticker on "How competitive are you?" | Hint at the format without explaining it. |
+| L-9 | **R01c Reel "The moon rises soon."** (Higgsfield: full moon rising over a rooftop court) | Share to Stories with a notify sticker | Tie the name to the moon without saying it. |
 | L-8 | **P04 Teaser "Scores locked"** | "Round 6 is secret. What do you think that means?" question box | Plant the reveal. Answers become content for L-6. |
-| L-7 | none | **P09 Countdown "7 days to moonrise"** | Countdown starts. Add the Instagram countdown sticker set to launch night. |
+| L-7 | **R01d Reel "16 players. One podium."** (Higgsfield: ball bounces send blue shockwaves across the court) | **P09 Countdown "7 days to moonrise"** | Countdown starts. Add the Instagram countdown sticker set to launch night. |
 
 ### Week 2: reveal, explain, convert
 
@@ -159,6 +162,16 @@ Every Reel: vertical 1080 x 1920, sound on, subtitles burned in, first frame wor
 - **Sound:** silent track, so add a trending sound or a low bass hit in Instagram.
 - **Caption:** Something big is coming to Dubai. Turn on notifications.
 - **CTA:** Follow.
+
+### Hype Reels R01a to R01d (L-13 to L-7, produced)
+Four 8 s vertical Reels made from Higgsfield clips, the same treatment as R00: no logo, people or venue, text fades in over the last half, small "DUBAI" label, silent track so you can add a sound in Instagram. Files are in `creatives/motion/mp4/`, covers in `creatives/png/`.
+
+| File | Footage | Text | Caption |
+| --- | --- | --- | --- |
+| R01a-lights-coming-on | Floodlights switch on one bank at a time over an empty court | "The lights are coming on." | The lights are coming on in Dubai. Soon. |
+| R01b-every-point-counts | Slow-motion ball hits the glass, a blue ripple spreads | "Every point will count." | Every rally. Every point. This time it counts. |
+| R01c-moon-rises-soon | Full moon rises behind a rooftop court | "The moon rises soon." | Watch the sky. |
+| R01d-sixteen-players | Ball bounces send blue shockwaves across the court | "16 players. One podium." | 16 players. 6 rounds. One podium. Coming to Dubai. |
 
 ### Reel 1. "Something is rising" (pre-launch teaser, L-14)
 - **Concept:** A padel ball under a single floodlight, lit so only a crescent of it shows, slowly turning until it reads as our moon.
@@ -382,6 +395,10 @@ All PNGs are full size and ready to post once the placeholders are filled. Edit 
 | File | Length | Use |
 | --- | --- | --- |
 | R00-something-big-is-coming | 8 s | **First post.** Higgsfield clip of the ball rising like a moon, with "Something big is coming." (Reel 0) |
+| R01a-lights-coming-on | 8 s | Higgsfield hype Reel, L-13 |
+| R01b-every-point-counts | 8 s | Higgsfield hype Reel, L-11 |
+| R01c-moon-rises-soon | 8 s | Higgsfield hype Reel, L-9 |
+| R01d-sixteen-players | 8 s | Higgsfield hype Reel, L-7 |
 | R01-something-rising | 9 s | Teaser 1 as a Reel: the crescent rises and lights up (Reel 1) |
 | R02-moonrise-countdown | 13 s | 7, 3, 1, Tonight while the moon fills to full (Reel 4) |
 | R03-points-gone | 9 s | Points counter climbs to 347, glitches back to 0000, "Gone." (Teaser 2) |
