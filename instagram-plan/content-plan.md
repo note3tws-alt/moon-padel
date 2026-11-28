@@ -85,15 +85,17 @@ Days are counted back from launch night (**L**). Post feed at 8 to 10 PM Dubai t
 
 ### Week 2: reveal, explain, convert
 
+Week 2 alternates designed posts and Higgsfield Reels: Reel (L-6), carousel (L-5), Reel (L-4), carousel (L-3), post (L-2), poster (L-1), Reel (L).
+
 | Day | Feed | Stories | Job |
 | --- | --- | --- | --- |
-| L-6 | **P05 Reveal** "Padel nights where every point counts" + Reel 2 (brand film) as Collab with the venue if they agree | Share the reveal. Link sticker to WhatsApp MOON. **P10 Join the mission** | Name the brand. Open the list. |
+| L-6 | **P05 Reveal** "Padel nights where every point counts" + **R06 Reel "Every point counts"** (brand film, Higgsfield, 16 s) as Collab with the venue if they agree | Share the reveal. Link sticker to WhatsApp MOON. **P10 Join the mission** | Name the brand. Open the list. |
 | L-5 | **P06 Carousel "How a Moon Padel night works"** (8 slides) | Reply to the best L-8 guesses about round 6 | Answer "what is it?" in 30 seconds. |
-| L-4 | Reel 3 "What is Americano?" (cover L19) | **P11 "Which league are you?"** quiz | Educate beginners, the biggest audience. |
+| L-4 | **R07 Reel "What is an Americano?"** (Higgsfield explainer, 15 s). Film the founder version later with cover L19. | **P11 "Which league are you?"** quiz | Educate beginners, the biggest audience. |
 | L-3 | **P07 Carousel "From Earth to the Moon"** (10 medals, 4 slides) | **P09 Countdown "3 days"** | Show the long game: why come back. |
 | L-2 | **P08 Find your league** | **P13 Founding 16** with the real confirmed count | Help people self-select D or C. Social proof, only with real numbers. |
 | L-1 | **P12 First night poster** (all details confirmed) | **P09 Countdown "1 day"**, Founding 16 update | The ask. Date, time, venue, fee, 16 spots. |
-| L | Reel 4 "Moonrise" (full moon, launch) on the morning; **P09 "Tonight"** Story | Match-day Story set (section 6) | Launch. |
+| L | **R08 Reel "Tonight."** (14, 7, 3, 1 countdown into a full moon over the city, 12 s) on the morning; **P09 "Tonight"** Story | Match-day Story set (section 6) | Launch. |
 
 **If first-night details are not confirmed by L-1:** post P12 with "Date announced to founding players first" and push WhatsApp MOON. Don't fake it.
 
@@ -173,6 +175,17 @@ Four 8 s vertical Reels made from Higgsfield clips, the same treatment as R00: a
 | R01b-every-point-counts | Slow-motion ball hits the glass, a blue ripple spreads | "No rally forgotten" / "Every point will count." / 11 nights | Every rally. Every point. This time it counts. |
 | R01c-moon-rises-soon | Full moon rises behind a rooftop court | "Watch the sky" / "The moon rises soon." / 9 nights | Watch the sky. |
 | R01d-sixteen-players | Ball bounces send blue shockwaves across the court | "Six rounds. One night." / "16 players. One podium." / 7 nights | 16 players. 6 rounds. One podium. Coming to Dubai. |
+
+### Week 2 Reels R06 to R08 (produced)
+Same look as the hype Reels: animated captions, stars, original music, no logo. Made from Higgsfield clips (floodlights, aerial courts, ball on glass, glowing bounce, blank gold medal, rooftop moon, full moon over a city). No people, no venue.
+
+| File | Day | Length | Captions | Caption for the post |
+| --- | --- | --- | --- | --- |
+| R06-brand-film-reveal | L-6 | 16 s | "16 players. 4 courts." / "6 rounds. New partners." / "Every point saved." / "Round 6 is secret." / "Then this." (gold medal) / "Every point counts." + WhatsApp MOON | Padel nights in Dubai where every point counts. Live scores, a podium every night, points that stay with you. WhatsApp "MOON" to join the first night. |
+| R07-what-is-americano | L-4 | 15 s | "No partner? No problem." / "New partner every round." / "Win. Move up a court." / "Every point is yours." / "Start in the D League." + WhatsApp MOON | Never played an Americano? It's the easiest way into competitive padel. Send this to the friend who keeps saying they're not ready. |
+| R08-moonrise-tonight | L | 12 s | "14 days." "7." "3." "1." then "Tonight." + "Come and watch. WhatsApp MOON" | Full moon. First night. See you on court. |
+
+The brand name is not shown in any Reel yet; P05 carries the reveal. Add the name to R06's end card only if the founders want the film to do the reveal too.
 
 ### Reel 1. "Something is rising" (pre-launch teaser, L-14)
 - **Concept:** A padel ball under a single floodlight, lit so only a crescent of it shows, slowly turning until it reads as our moon.
@@ -400,6 +413,9 @@ All PNGs are full size and ready to post once the placeholders are filled. Edit 
 | R01b-every-point-counts | 8 s | Higgsfield hype Reel, L-11 |
 | R01c-moon-rises-soon | 8 s | Higgsfield hype Reel, L-9 |
 | R01d-sixteen-players | 8 s | Higgsfield hype Reel, L-7 |
+| R06-brand-film-reveal | 16 s | Brand film for the reveal day, L-6 (Reel 2) |
+| R07-what-is-americano | 15 s | Beginner explainer, L-4 (Reel 3) |
+| R08-moonrise-tonight | 12 s | Launch morning countdown, L (Reel 4) |
 | R01-something-rising | 9 s | Teaser 1 as a Reel: the crescent rises and lights up (Reel 1) |
 | R02-moonrise-countdown | 13 s | 7, 3, 1, Tonight while the moon fills to full (Reel 4) |
 | R03-points-gone | 9 s | Points counter climbs to 347, glitches back to 0000, "Gone." (Teaser 2) |
