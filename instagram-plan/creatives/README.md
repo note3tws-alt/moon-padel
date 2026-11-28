@@ -7,7 +7,7 @@
 | `png/` | Ready-size exports. Feed 1080 x 1440, Story and Reel cover 1080 x 1920. `_grid-preview.png` and `_contact-sheet.png` are overviews. |
 | `src/` | Editable source, one HTML file per creative. Open in a browser to preview. |
 | `assets/` | `theme.css` (all colours, type and components), galaxy backgrounds, logo files, Montserrat. |
-| `motion/` | Animated Reel versions: `mp4/` videos and `src/` HTML (CSS keyframes). Built by `tools/motion.py`. |
+| `motion/` | Animated Reel versions: `mp4/` videos and `src/` HTML (CSS keyframes). Built by `tools/motion.py`, except `R00`, which is Higgsfield footage with a text overlay (see `../higgsfield-prompt-pack.md`). |
 | `tools/` | `build.py` writes `src/` from one Python file, `render.py` exports PNGs, `make_backgrounds.py` regenerates the galaxy backgrounds. |
 
 Orange `[BRACKETS]` are placeholders. Replace them only with confirmed facts.

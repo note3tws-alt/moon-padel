@@ -73,6 +73,7 @@ Days are counted back from launch night (**L**). Post feed at 8 to 10 PM Dubai t
 
 | Day | Feed | Stories | Job |
 | --- | --- | --- | --- |
+| L-15 | **R00 Reel "Something big is coming"** (opening post, Higgsfield clip). The first thing on the grid. | Share the Reel to Stories with a "?" question sticker: "What do you think it is?" | Open the account with motion, not a poster. |
 | L-14 | **P01 Teaser "Something is rising"** (crescent). Or as a Reel: Reel 1. | Repost with a "?" question sticker: "What do you think is coming?" | Stop the scroll. Start the mystery. |
 | L-12 | **P02 Teaser "Every rally. Every point. Gone."** | Poll: "Do you know how many points you won this year?" Yes / No idea | Plant the pain: nobody records social padel. |
 | L-10 | **P03 Teaser "16 · 4 · 6 · 1"** | Slider sticker on "How competitive are you?" | Hint at the format without explaining it. |
@@ -150,6 +151,14 @@ The night itself is the best content we have. One person (not playing) runs Stor
 ## 7. Reels (scripted)
 
 Every Reel: vertical 1080 x 1920, sound on, subtitles burned in, first frame works without sound, the logo appears only at the end or on the cover. Captions are short; Reel text carries the story.
+
+### Reel 0. "Something big is coming" (opening post, L-15, produced)
+- **File:** `creatives/motion/mp4/R00-something-big-is-coming.mp4` (8 s, 1080 x 1920). Cover: `creatives/png/R00-reel-cover-something-big.png`.
+- **Footage:** generated in Higgsfield (MAGI-2, 28 Nov 2026): a padel ball in total darkness, lit from behind so it starts as a thin crescent and turns into a full glowing "moon". No logo, no people, no venue.
+- **On-screen text:** "Something big" (from 2.2 s), "is coming." (from 3.0 s), small "DUBAI" (from 4.3 s), held on the last frame to 8 s.
+- **Sound:** silent track, so add a trending sound or a low bass hit in Instagram.
+- **Caption:** Something big is coming to Dubai. Turn on notifications.
+- **CTA:** Follow.
 
 ### Reel 1. "Something is rising" (pre-launch teaser, L-14)
 - **Concept:** A padel ball under a single floodlight, lit so only a crescent of it shows, slowly turning until it reads as our moon.
@@ -241,6 +250,7 @@ Every Reel: vertical 1080 x 1920, sound on, subtitles burned in, first frame wor
 
 Short, natural, few emojis, one or two hashtags at most (`#padeldubai` and, after launch, `#moonpadel`).
 
+- **R00 Something big is coming (first post):** Something big is coming to Dubai. Turn on notifications.
 - **P01 Something is rising:** Something is rising over Dubai. Turn on notifications.
 - **P02 Points gone:** How many padel points did you win this year? Nobody kept count. Not for much longer.
 - **P03 The numbers:** 16. 4. 6. 1. Guesses in the comments.
@@ -371,6 +381,7 @@ All PNGs are full size and ready to post once the placeholders are filled. Edit 
 
 | File | Length | Use |
 | --- | --- | --- |
+| R00-something-big-is-coming | 8 s | **First post.** Higgsfield clip of the ball rising like a moon, with "Something big is coming." (Reel 0) |
 | R01-something-rising | 9 s | Teaser 1 as a Reel: the crescent rises and lights up (Reel 1) |
 | R02-moonrise-countdown | 13 s | 7, 3, 1, Tonight while the moon fills to full (Reel 4) |
 | R03-points-gone | 9 s | Points counter climbs to 347, glitches back to 0000, "Gone." (Teaser 2) |
