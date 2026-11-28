@@ -95,7 +95,7 @@ Week 2 alternates designed posts and Higgsfield Reels: Reel (L-6), carousel (L-5
 | L-3 | **P07 Carousel "From Earth to the Moon"** (10 medals, 4 slides) | **P09 Countdown "3 days"** | Show the long game: why come back. |
 | L-2 | **P08 Find your league** | **P13 Founding 16** with the real confirmed count | Help people self-select D or C. Social proof, only with real numbers. |
 | L-1 | **P12 First night poster** (all details confirmed) | **P09 Countdown "1 day"**, Founding 16 update | The ask. Date, time, venue, fee, 16 spots. |
-| L | **R08 Reel "Tonight."** (14, 7, 3, 1 countdown into a full moon over the city, 12 s) on the morning; **P09 "Tonight"** Story | Match-day Story set (section 6) | Launch. |
+| L | **R08 Reel "Tonight."** (14, 7, 3, 1 countdown into a full moon rising beside Burj Khalifa over the Dubai skyline, 12 s) on the morning; **P09 "Tonight"** Story | Match-day Story set (section 6) | Launch. |
 
 **If first-night details are not confirmed by L-1:** post P12 with "Date announced to founding players first" and push WhatsApp MOON. Don't fake it.
 
