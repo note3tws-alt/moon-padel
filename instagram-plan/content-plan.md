@@ -159,13 +159,13 @@ Every Reel: vertical 1080 x 1920, sound on, subtitles burned in, first frame wor
 - **File:** `creatives/motion/mp4/R00-something-big-is-coming.mp4` (8 s, 1080 x 1920). Cover: `creatives/png/R00-reel-cover-something-big.png`.
 - **Footage:** generated in Higgsfield (MAGI-2, 28 Nov 2026): a padel ball in total darkness, lit from behind so it starts as a thin crescent and turns into a full glowing "moon". No logo, no people, no venue.
 - **On-screen text:** kicker "DUBAI, AFTER DARK", then "SOMETHING BIG / IS COMING." rising in word by word ("BIG" in the logo's blue gradient), then a glowing orbit line and "15 NIGHTS TO MOONRISE".
-- **Moon elements:** faint twinkling stars and a slow push in on the last frame. The real moon mark (as a crescent, with a soft halo) is held back and revealed last, at 5.3 s, on a music hit.
+- **Moon elements:** faint twinkling stars, a glowing orbit line and a slow push in on the last frame. No logo and no brand name (Hola, 28 Nov): the teasers stay anonymous until the reveal.
 - **Sound:** original music made for this Reel (heartbeat build, impact as the headline lands, moonlit bells). Royalty free, since we made it. You can still swap in a trending sound in Instagram.
 - **Caption:** Something big is coming to Dubai. Turn on notifications.
 - **CTA:** Follow.
 
 ### Hype Reels R01a to R01d (L-13 to L-7, produced)
-Four 8 s vertical Reels made from Higgsfield clips, the same treatment as R00: animated kicker and headline with one word in the logo blue, a "nights to moonrise" countdown, the real moon mark revealed last, filling one phase per Reel (crescent to gibbous), with stars and a halo, and original music for each. No people, wordmark or venue. Files are in `creatives/motion/mp4/`, covers in `creatives/png/`.
+Four 8 s vertical Reels made from Higgsfield clips, the same treatment as R00: animated kicker and headline with one word in the logo blue, a "nights to moonrise" countdown, twinkling stars and a glowing orbit line, and original music for each. No logo, brand name, people or venue. Files are in `creatives/motion/mp4/`, covers in `creatives/png/`.
 
 | File | Footage | Text | Caption |
 | --- | --- | --- | --- |
