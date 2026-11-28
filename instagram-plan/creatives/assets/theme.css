@@ -1,0 +1,111 @@
+/* Moon Padel Instagram theme
+   Refined from the Website Brief (Phase 1) "deep space" look and the logo kit.
+   Every creative in src/ links this file. Change a token here and re-render. */
+
+@font-face {
+  font-family: "Montserrat"; font-style: normal; font-weight: 400 800;
+  src: url("fonts/montserrat-core.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A9, U+00B7, U+2013, U+2018-201D, U+2192;
+}
+@font-face {
+  font-family: "Montserrat"; font-style: normal; font-weight: 400 800;
+  src: url("fonts/montserrat-latin-rest.woff2") format("woff2");
+  unicode-range: U+0000-001F, U+007F-00A8, U+00AA-00B6, U+00B8-00FF, U+2000-2012, U+2014-2017, U+201E-206F, U+20AC, U+2122, U+2212;
+}
+
+:root {
+  /* Ground */
+  --space: #05070F;        /* Deep Space: page ground */
+  --navy: #0B1226;         /* Midnight Navy: panels */
+  --court: #1D3FA6;        /* Court blue: depth, gradients */
+  /* Light */
+  --electric: #1E9BFF;     /* Electric Blue: buttons, key words */
+  --glow: #3FB8FF;         /* Glow Blue: glows, highlights */
+  --ice: #A9DBFF;          /* Ice: labels */
+  --silver: #DDE6F2;       /* Moon Silver: headings, text */
+  --muted: #8FA0BC;        /* Muted text */
+  /* Signals */
+  --orange: #FF9F43;       /* Signal Orange: warnings, "new" only */
+  --wa: #25D366;           /* WhatsApp green: WhatsApp tags only */
+  --cleague: #9A88FF;      /* C League accent */
+  /* Podium: winners only */
+  --gold: #F2C14E;
+  --medal-silver: #C9D3E0;
+  --bronze: #D08A55;
+
+  --glass: rgba(11, 18, 38, 0.62);
+  --edge: rgba(63, 184, 255, 0.38);
+  --edge-strong: rgba(63, 184, 255, 0.85);
+  --halo: 0 0 28px rgba(30, 155, 255, 0.35), inset 0 0 22px rgba(63, 184, 255, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--space); }
+body { font-family: "Inter", "Segoe UI", Arial, sans-serif; color: var(--silver); -webkit-font-smoothing: antialiased; }
+
+/* Frames */
+.frame { position: relative; overflow: hidden; width: 1080px; background: var(--space) center/cover no-repeat; }
+.feed  { height: 1440px; }
+.story { height: 1920px; }
+.bg-a.feed  { background-image: url("space-feed-a.jpg"); }
+.bg-b.feed  { background-image: url("space-feed-b.jpg"); }
+.bg-a.story { background-image: url("space-story-a.jpg"); }
+.bg-b.story { background-image: url("space-story-b.jpg"); }
+.pad { position: absolute; inset: 84px 84px 84px 84px; display: flex; flex-direction: column; }
+.story .pad { inset: 330px 84px 360px 84px; justify-content: center; }   /* keeps text out of Story UI zones (top 250, bottom 340) */
+
+/* Type */
+.mont { font-family: "Montserrat", sans-serif; }
+.eyebrow { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--glow); text-shadow: 0 0 18px rgba(63,184,255,.55); }
+.h1, .h2, .h3 { font-family: "Montserrat", sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.95; color: #F4F8FF; text-shadow: 0 0 26px rgba(160, 210, 255, 0.28); }
+.h1 { font-size: 132px; }
+.h2 { font-size: 96px; }
+.h3 { font-size: 64px; line-height: 1.0; }
+.blue { color: var(--glow); background: linear-gradient(180deg, #8FD6FF 0%, #2E9BFF 95%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 18px rgba(30,155,255,.55)); }
+.gold-t { color: var(--gold); text-shadow: 0 0 24px rgba(242,193,78,.45); }
+.lead { font-size: 38px; line-height: 1.42; color: #C9D6EA; font-weight: 400; }
+.lead b { color: #FFFFFF; font-weight: 600; }
+.small { font-size: 26px; color: var(--muted); line-height: 1.5; }
+.line { font-family: "Montserrat", sans-serif; font-weight: 500; font-size: 26px; letter-spacing: 0.42em; text-transform: uppercase; color: var(--ice); }
+.num { font-family: "Montserrat", sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+.ph { color: var(--orange); }   /* bracketed placeholders, easy to spot */
+
+/* Glass card, pills, buttons */
+.card { background: var(--glass); border: 2px solid var(--edge); border-radius: 30px; box-shadow: var(--halo); backdrop-filter: blur(6px); }
+.card.hot { border-color: var(--edge-strong); box-shadow: 0 0 44px rgba(30,155,255,.45), inset 0 0 30px rgba(63,184,255,.12); }
+.pill { display: inline-flex; align-items: center; gap: 14px; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 24px; letter-spacing: 0.22em; text-transform: uppercase; padding: 14px 28px; border-radius: 999px; border: 2px solid var(--edge-strong); color: #EAF6FF; background: rgba(11,18,38,.6); box-shadow: 0 0 20px rgba(30,155,255,.35); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 16px; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 34px; letter-spacing: 0.16em; text-transform: uppercase; padding: 30px 54px; border-radius: 999px; color: #04101F; background: linear-gradient(180deg, #6CCBFF 0%, #1E9BFF 100%); box-shadow: 0 0 40px rgba(30,155,255,.65), 0 0 0 2px rgba(169,219,255,.5) inset; }
+.tag { display: inline-block; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.2em; padding: 8px 18px; border-radius: 999px; text-transform: uppercase; }
+.tag.wa { color: #7CF0AE; border: 2px solid rgba(37,211,102,.6); background: rgba(37,211,102,.08); }
+.tag.web { color: var(--ice); border: 2px solid var(--edge-strong); background: rgba(30,155,255,.1); }
+.tag.venue { color: #C9BFFF; border: 2px solid rgba(154,136,255,.6); background: rgba(154,136,255,.1); }
+.lvl { display: inline-flex; align-items: center; justify-content: center; min-width: 96px; height: 56px; padding: 0 20px; border-radius: 999px; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 28px; color: #EAF6FF; border: 2px solid var(--edge-strong); background: rgba(30,155,255,.18); }
+.lvl.c { border-color: rgba(154,136,255,.9); background: rgba(154,136,255,.2); color: #EEE9FF; }
+.lvl.on { background: linear-gradient(180deg,#6CCBFF,#1E9BFF); color: #04101F; box-shadow: 0 0 24px rgba(30,155,255,.7); }
+.lvl.c.on { background: linear-gradient(180deg,#C2B6FF,#8A74FF); color: #120A33; box-shadow: 0 0 24px rgba(154,136,255,.7); }
+
+/* Rule with glow */
+.rule { height: 2px; background: linear-gradient(90deg, transparent, rgba(63,184,255,.9), transparent); box-shadow: 0 0 12px rgba(63,184,255,.8); }
+
+/* Top bar and footer (brief-style) */
+.topbar { position: absolute; left: 84px; right: 84px; top: 64px; display: flex; align-items: center; justify-content: space-between; }
+.story .topbar { top: 200px; }
+.topbar img.logo { height: 64px; }
+.topbar .meta { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
+.foot { position: absolute; left: 84px; right: 84px; bottom: 64px; display: flex; align-items: center; justify-content: space-between; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); }
+.story .foot { bottom: 250px; }
+.foot .cta { color: var(--ice); }
+
+/* Moon mark */
+.mark { display: block; filter: drop-shadow(0 0 60px rgba(46,139,234,.55)) drop-shadow(0 0 14px rgba(63,184,255,.6)); }
+.moonwrap { position: relative; -webkit-mask-image: radial-gradient(circle closest-side, #000 80%, transparent 100%); mask-image: radial-gradient(circle closest-side, #000 80%, transparent 100%); }
+.moonwrap .ghost { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .10; filter: grayscale(1) brightness(.8); }
+.moonwrap .lit { position: relative; width: 100%; height: 100%; }
+
+/* Medals */
+.medal svg { display: block; }
+
+/* Big screen / table */
+.screen { border-radius: 30px; border: 2px solid var(--edge); background: rgba(6,11,26,.78); box-shadow: var(--halo); }
+.row { display: flex; align-items: center; }
+.spacer { flex: 1; }
